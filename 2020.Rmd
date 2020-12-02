@@ -1,0 +1,462 @@
+---
+title: "2020 AoC Rstats solutions"
+description: |
+  My solutions to the Advent of Code coding challanges.
+output:
+  html_document:
+    toc: true
+    toc_depth: 1
+    toc_float: true
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, results = "hide")
+library(tidyverse)
+```
+
+My rules:
+
+- I'm here to have fun, some solutions may not be the most efficient but they will get the answer.  
+- I will use purrr `map`s and stringr functions even if I label an answer as base.
+
+# Day 1
+
+## Part 1
+
+### tidyverse
+
+```{r}
+library(tidyverse)
+
+input <- as.numeric(readLines("2020/01-input"))
+
+expand_grid(x = input, y = input) %>%
+  filter(x + y == 2020) %>%
+  mutate(res = x * y) %>%
+  slice(1) %>%
+  pull(res)
+```
+
+### base
+
+```{r}
+input <- as.numeric(readLines("2020/01-input"))
+
+sum2 <- function(input, target) {
+  for (i in input) {
+    for (j in input) {
+      if (i + j == target) {
+        return(i * j)
+      }
+    }
+  }
+}
+
+sum2(input, 2020)
+```
+
+## Part 2
+
+### tidyverse
+
+```{r}
+expand_grid(x = input, y = input, z = input) %>%
+  filter(x + y + z == 2020) %>%
+  mutate(res = x * y * z) %>%
+  slice(1) %>%
+  pull(res)
+```
+
+### base
+
+```{r}
+sum3 <- function(input, target) {
+  for (i in input) {
+    for (j in input) {
+      for (l in input) {
+        if (i + j + l == target) {
+          return(i * j * l)
+        }
+      }
+    }
+  }
+}
+
+sum3(input, 2020)
+```
+
+# Day 2
+
+## Part 1
+
+### base
+
+```{r}
+library(purrr)
+library(stringr)
+
+input <- readLines("2020/02-input")
+
+password_check <- function(x) {
+  numbers <- as.numeric(str_extract_all(x, "[0-9]+")[[1]])
+  chars <- str_extract_all(x, "[a-z]+")[[1]]
+  
+  count <- str_count(chars[2], chars[1])
+  (numbers[1] <= count) & (numbers[2] >= count) 
+}
+
+sum(map_lgl(input, password_check))
+```
+
+## Part 2
+
+### base
+
+```{r}
+library(purrr)
+library(stringr)
+
+input <- readLines("2020/02-input")
+
+password_check_2 <- function(x) {
+  numbers <- as.numeric(str_extract_all(x, "[0-9]+")[[1]])
+  chars <- str_extract_all(x, "[a-z]+")[[1]]
+  
+  loc1 <- str_sub(chars[2], numbers[1], numbers[1])
+  loc2 <- str_sub(chars[2], numbers[2], numbers[2])
+     
+  sum(loc1 == chars[1], loc2 == chars[1]) == 1
+  
+}
+
+sum(map_lgl(input, password_check_2))
+```
+
+```{r, include=FALSE}
+knitr::knit_exit()
+```
+
+# Day 3
+
+## Part 1
+
+```{r}
+
+```
+
+## Part 2
+
+```{r}
+
+```
+
+# Day 4
+
+## Part 1
+
+```{r}
+
+```
+
+## Part 2
+
+```{r}
+
+```
+
+# Day 5
+
+## Part 1
+
+```{r}
+
+```
+
+## Part 2
+
+```{r}
+
+```
+
+
+# Day 6
+
+## Part 1
+
+```{r}
+
+```
+
+## Part 2
+
+```{r}
+
+```
+
+# Day 7
+
+## Part 1
+
+```{r}
+
+```
+
+## Part 2
+
+```{r}
+
+```
+
+# Day 8
+
+## Part 1
+
+```{r}
+
+```
+
+## Part 2
+
+```{r}
+
+```
+
+# Day 9
+
+## Part 1
+
+```{r}
+
+```
+
+## Part 2
+
+```{r}
+
+```
+
+# Day 10
+
+## Part 1
+
+```{r}
+
+```
+
+## Part 2
+
+```{r}
+
+```
+
+# Day 11
+
+## Part 1
+
+```{r}
+
+```
+
+## Part 2
+
+```{r}
+
+```
+
+# Day 12
+
+## Part 1
+
+```{r}
+
+```
+
+## Part 2
+
+```{r}
+
+```
+
+# Day 13
+
+## Part 1
+
+```{r}
+
+```
+
+## Part 2
+
+```{r}
+
+```
+
+# Day 14
+
+## Part 1
+
+```{r}
+
+```
+
+## Part 2
+
+```{r}
+
+```
+
+# Day 15
+
+## Part 1
+
+```{r}
+
+```
+
+## Part 2
+
+```{r}
+
+```
+
+# Day 16
+
+## Part 1
+
+```{r}
+
+```
+
+## Part 2
+
+```{r}
+
+```
+
+# Day 17
+
+## Part 1
+
+```{r}
+
+```
+
+## Part 2
+
+```{r}
+
+```
+
+# Day 18
+
+## Part 1
+
+```{r}
+
+```
+
+## Part 2
+
+```{r}
+
+```
+
+# Day 19
+
+## Part 1
+
+```{r}
+
+```
+
+## Part 2
+
+```{r}
+
+```
+
+# Day 20
+
+## Part 1
+
+```{r}
+
+```
+
+## Part 2
+
+```{r}
+
+```
+
+# Day 21
+
+## Part 1
+
+```{r}
+
+```
+
+## Part 2
+
+```{r}
+
+```
+
+# Day 22
+
+## Part 1
+
+```{r}
+
+```
+
+## Part 2
+
+```{r}
+
+```
+
+# Day 23
+
+## Part 1
+
+```{r}
+
+```
+
+## Part 2
+
+```{r}
+
+```
+
+# Day 24
+
+## Part 1
+
+```{r}
+
+```
+
+## Part 2
+
+```{r}
+
+```
+
+# Day 25
+
+## Part 1
+
+```{r}
+
+```
+
+## Part 2
+
+```{r}
+
+```
+

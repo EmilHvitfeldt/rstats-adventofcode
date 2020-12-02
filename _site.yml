@@ -1,0 +1,16 @@
+name: "."
+title: "Rstats Advent of Code"
+description: |
+  Rstats Advent of Code
+output_dir: "docs"
+navbar:
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "2020"
+      href: 2020.html
+output:
+  html_document:
+    theme: cosmo
+    highlight: textmate
+exclude: ["2015", "2016", "2017", "2018", "2019"]
