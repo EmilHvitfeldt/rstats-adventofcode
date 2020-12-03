@@ -133,22 +133,51 @@ password_check_2 <- function(x) {
 sum(map_lgl(input, password_check_2))
 ```
 
-```{r, include=FALSE}
-knitr::knit_exit()
-```
-
 # Day 3
 
 ## Part 1
 
 ```{r}
+library(purrr)
 
+input <- readLines("2020/03-input")
+
+# turn input into logical matrix
+mat <- strsplit(input, "") %>%
+  map(~.x == "#") %>%
+  reduce(rbind)
+
+traverse <- function(mat, right, down) {
+  
+  # Create x and y coordinates
+  y_coord <- seq(1 + down, nrow(mat), by = down)
+  x_coord <- (seq(1, nrow(mat) - 1) * right) %% ncol(mat) + 1
+
+  # Check tree collision
+  trees <- 0
+  for (i in seq_along(y_coord)) {
+    trees <- trees + mat[y_coord[i], x_coord[i]]
+  }
+  trees
+}
+
+traverse(mat, 3, 1)
 ```
 
 ## Part 2
 
 ```{r}
+prod(
+  traverse(mat, 1, 1),
+  traverse(mat, 3, 1),
+  traverse(mat, 5, 1),
+  traverse(mat, 7, 1),
+  traverse(mat, 1, 2)
+)
+```
 
+```{r, include=FALSE}
+knitr::knit_exit()
 ```
 
 # Day 4

@@ -507,6 +507,46 @@ sum(map_lgl(input, password_check_2))</code></pre>
 </div>
 </div>
 </div>
+<div id="day-3" class="section level1">
+<h1>Day 3</h1>
+<div id="part-1-2" class="section level2">
+<h2>Part 1</h2>
+<pre class="r"><code>library(purrr)
+
+input &lt;- readLines(&quot;2020/03-input&quot;)
+
+# turn input into logical matrix
+mat &lt;- strsplit(input, &quot;&quot;) %&gt;%
+  map(~.x == &quot;#&quot;) %&gt;%
+  reduce(rbind)
+
+traverse &lt;- function(mat, right, down) {
+  
+  # Create x and y coordinates
+  y_coord &lt;- seq(1 + down, nrow(mat), by = down)
+  x_coord &lt;- (seq(1, nrow(mat) - 1) * right) %% ncol(mat) + 1
+
+  # Check tree collision
+  trees &lt;- 0
+  for (i in seq_along(y_coord)) {
+    trees &lt;- trees + mat[y_coord[i], x_coord[i]]
+  }
+  trees
+}
+
+traverse(mat, 3, 1)</code></pre>
+</div>
+<div id="part-2-2" class="section level2">
+<h2>Part 2</h2>
+<pre class="r"><code>prod(
+  traverse(mat, 1, 1),
+  traverse(mat, 3, 1),
+  traverse(mat, 5, 1),
+  traverse(mat, 7, 1),
+  traverse(mat, 1, 2)
+)</code></pre>
+</div>
+</div>
 
 
 
