@@ -521,15 +521,19 @@ mat &lt;- strsplit(input, &quot;&quot;) %&gt;%
   reduce(rbind)
 
 traverse &lt;- function(mat, right, down) {
+  x &lt;- y &lt;- 1
   
-  # Create x and y coordinates
-  y_coord &lt;- seq(1 + down, nrow(mat), by = down)
-  x_coord &lt;- (seq(1, nrow(mat) - 1) * right) %% ncol(mat) + 1
-
+  height &lt;- nrow(mat)
+  width &lt;- ncol(mat)
+  
   # Check tree collision
   trees &lt;- 0
-  for (i in seq_along(y_coord)) {
-    trees &lt;- trees + mat[y_coord[i], x_coord[i]]
+  repeat {
+    y &lt;- y + down
+    x &lt;- (x + right) %% width
+    x &lt;- ifelse(x == 0, width, x)
+    trees &lt;- trees + mat[y, x]
+    if (y &gt;= height) break
   }
   trees
 }

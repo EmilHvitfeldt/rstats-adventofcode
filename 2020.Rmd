@@ -148,15 +148,19 @@ mat <- strsplit(input, "") %>%
   reduce(rbind)
 
 traverse <- function(mat, right, down) {
+  x <- y <- 1
   
-  # Create x and y coordinates
-  y_coord <- seq(1 + down, nrow(mat), by = down)
-  x_coord <- (seq(1, nrow(mat) - 1) * right) %% ncol(mat) + 1
-
+  height <- nrow(mat)
+  width <- ncol(mat)
+  
   # Check tree collision
   trees <- 0
-  for (i in seq_along(y_coord)) {
-    trees <- trees + mat[y_coord[i], x_coord[i]]
+  repeat {
+    y <- y + down
+    x <- (x + right) %% width
+    x <- ifelse(x == 0, width, x)
+    trees <- trees + mat[y, x]
+    if (y >= height) break
   }
   trees
 }
