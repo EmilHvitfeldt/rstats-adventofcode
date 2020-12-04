@@ -13,6 +13,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, results = "hide")
 library(tidyverse)
+library(magrittr)
 ```
 
 My rules:
@@ -180,22 +181,155 @@ prod(
 )
 ```
 
-```{r, include=FALSE}
-knitr::knit_exit()
-```
-
 # Day 4
+
+This is the first day this where where we have to type a lot to get the results.
 
 ## Part 1
 
-```{r}
+The first part isn't terrible long.
+the input looks something like this:
 
+```{text, eval=FALSE}
+ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
+byr:1937 iyr:2017 cid:147 hgt:183cm
+
+iyr:2013 ecl:amb cid:350 eyr:2023 pid:028048884
+hcl:#cfa07d byr:1929
+
+hcl:#ae17e1 iyr:2013
+eyr:2024
+ecl:brn pid:760753108 byr:1931
+hgt:179cm
+
+hcl:#cfa07d eyr:2025 pid:166559648
+iyr:2011 ecl:brn hgt:59in
+```
+
+passports are separated by newlines, and each passport contains a number of key-value pairs. 
+The task in part one is to make sure that the following fields are present in a passport:
+
+- `byr` (Birth Year)
+- `iyr` (Issue Year)
+- `eyr` (Expiration Year)
+- `hgt` (Height)
+- `hcl` (Hair Color)
+- `ecl` (Eye Color)
+- `pid` (Passport ID)
+- `cid` (Country ID)
+
+but are allowed to treat the `cid` field as optional.
+
+I start by reading in the input as I normally do and to get the passwords I first collapses the input back into 1 string using newline characters, then I can `str_split()` to get individual passports by splitting on double newlines.
+
+I construct a vector of all the required field names and used a combination of `%in%` and `all()` to make sure all the fields are present. 
+
+```{r}
+library(purrr)
+library(stringr)
+library(magrittr)
+
+input <- readLines("2020/04-input")
+
+passports <- str_split(paste(input, collapse = "\n"), "\n\n")[[1]]
+
+matches <- c("byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid")
+
+valid <- str_extract_all(passports, paste0(matches, collapse = "|")) %>%
+  map_lgl(~all(matches %in% .x))
+
+sum(valid)
 ```
 
 ## Part 2
 
-```{r}
+Now that we detected the passport with the required fields, we are asked to validate that the values in each field are valid.
 
+- `byr` (Birth Year) - four digits; at least `1920` and at most `2002`.
+- `iyr` (Issue Year) - four digits; at least `2010` and at most `2020`.
+- `eyr` (Expiration Year) - four digits; at least `2020` and at most `2030`.
+- `hgt` (Height) - a number followed by either cm or in:
+    - If cm, the number must be at least `150` and at most `193`.
+    - If in, the number must be at least `59` and at most `76`.
+- `hcl` (Hair Color) - a `#` followed by exactly six characters `0-9` or `a-f`.
+- `ecl` (Eye Color) - exactly one of: `amb` `blu` `brn` `gry` `grn` `hzl` `oth`.
+- `pid` (Passport ID) - a nine-digit number, including leading zeroes.
+- `cid` (Country ID) - ignored, missing or not.
+
+I have 2 thoughts right away.
+
+- get the data in data.frame as soon as possible
+- create a function for each field
+
+`create_list()` takes passwords and returns a named list, when named lists are returned inside a `map_dfr()` then you automatically get a data.frame out.
+
+All the check functions should be pretty self-explanatory.
+`check_hgt()` you need to remember that heights without units are invalid, hence the double `if_else()`.
+You need to remember `^` and `$` in `check_pid()` otherwise you can also match 10-digit numbers (like i did at first).
+
+```{r}
+create_list <- function(x) {
+  x <- str_split(x, "[ \n]")[[1]]
+  x_split <- str_split(x, ":")
+
+  setNames(map(x_split, 2), map(x_split, 1))
+}
+
+password_df <- passports[valid] %>%
+  map_dfr(create_list)
+
+int <- as.integer
+
+check_byr <- function(x) int(x) >= 1920 & int(x) <= 2002
+
+check_iyr <- function(x) int(x) >= 2010 & int(x) <= 2020
+
+check_eyr <- function(x) int(x) >= 2020 & int(x) <= 2030
+
+check_hgt <- function(x) {
+  value <- as.numeric(str_extract(x, "[0-9]+"))
+  unit <- str_remove(x, "[0-9]+")
+  
+  if_else(
+    unit %in% c("in", "cm"),
+    if_else(
+      unit == "in",
+      value >= 59 & value <= 76,
+      value >= 150 & value <= 193
+      ),
+    FALSE
+  )
+}
+
+check_hcl <- function(x) {
+  str_detect(x, "#[0-9a-f]{6}")
+}
+
+check_ecl <- function(x) {
+  x %in% c("amb", "blu", "brn", "gry", "grn", "hzl", "oth")
+}
+
+check_pid <- function(x) {
+  str_detect(x, "^[0-9]{9}$")
+}
+
+library(dplyr)
+
+password_df %>%
+  filter(
+    check_hgt(hgt),
+    check_byr(byr),
+    check_hcl(hcl),
+    check_ecl(ecl),
+    check_pid(pid),
+    check_iyr(iyr),
+    check_eyr(eyr)
+  ) %>%
+  nrow()
+```
+
+```{r, include=FALSE}
+knitr::knit_exit()
 ```
 
 # Day 5
