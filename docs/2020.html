@@ -683,6 +683,117 @@ password_df %&gt;%
   nrow()</code></pre>
 </div>
 </div>
+<div id="day-5" class="section level1">
+<h1>Day 5</h1>
+<div id="part-1-4" class="section level2">
+<h2>Part 1</h2>
+<pre class="r"><code>input &lt;- readLines(&quot;2020/05-input&quot;)
+
+input &lt;- gsub(c(&quot;[FL]&quot;), c(&quot;0&quot;), input)
+input &lt;- gsub(c(&quot;[BR]&quot;), c(&quot;1&quot;), input)
+
+id &lt;- strtoi(input, base = 2)
+
+max(id)</code></pre>
+</div>
+<div id="part-2-4" class="section level2">
+<h2>Part 2</h2>
+<pre class="r"><code>setdiff(seq(min(id), max(id)), id)</code></pre>
+</div>
+<div id="part-1-5" class="section level2">
+<h2>Part 1</h2>
+<pre class="r"><code>library(tidyverse)
+id &lt;- read_lines(&quot;2020/05-input&quot;) %&gt;%
+  str_replace_all(c(&quot;[FL]&quot; = &quot;0&quot;, &quot;[BR]&quot; = &quot;1&quot;)) %&gt;%
+  strtoi(base = 2)
+
+max(id)</code></pre>
+</div>
+<div id="part-2-5" class="section level2">
+<h2>Part 2</h2>
+<pre class="r"><code>setdiff(seq(min(id), max(id)), id)</code></pre>
+</div>
+</div>
+<div id="day-6" class="section level1">
+<h1>Day 6</h1>
+<p>Tidyverse + tidytext</p>
+<div id="part-1-6" class="section level2">
+<h2>Part 1</h2>
+<pre class="r"><code>library(tidyverse)
+library(tidytext)
+
+answers &lt;- read_file(&quot;2020/06-input&quot;) %&gt;%
+  tibble(input = .) %&gt;%
+  unnest_paragraphs(text, input) %&gt;%
+  rowid_to_column(&quot;group_id&quot;) %&gt;%
+  unnest_tokens(text, text) %&gt;%
+  rowid_to_column(&quot;person_id&quot;) %&gt;%
+  unnest_characters(text, text)
+
+answers %&gt;%
+  count(group_id, text) %&gt;%
+  nrow()</code></pre>
+</div>
+<div id="part-2-6" class="section level2">
+<h2>Part 2</h2>
+<pre class="r"><code>answers %&gt;%
+  group_by(group_id) %&gt;%
+  mutate(group_size = n_distinct(person_id)) %&gt;%
+  count(group_size, text) %&gt;%
+  filter(group_size == n) %&gt;%
+  nrow()</code></pre>
+</div>
+</div>
+<div id="day-7" class="section level1">
+<h1>Day 7</h1>
+<div id="part-1-7" class="section level2">
+<h2>Part 1</h2>
+<pre class="r"><code>library(stringr)
+input &lt;- readLines(&quot;2020/07-input&quot;)
+
+containing_bag &lt;- function(x) {
+  str_extract(str_subset(input, paste0(&quot;.+&quot;, x)), &quot;^.+?bag&quot;)
+}
+
+used_bags &lt;- c()
+
+new_bags &lt;- &quot;shiny gold bag&quot;
+
+repeat {
+  newer_bags &lt;- unique(unlist(lapply(new_bags, containing_bag)))
+  
+  if (length(newer_bags) == 0) {
+    used_bags &lt;- c(used_bags, new_bags)
+    break
+  }
+  
+  used_bags &lt;- c(used_bags, new_bags)
+  
+  new_bags &lt;- setdiff(newer_bags, used_bags)
+}
+
+length(setdiff(used_bags, &quot;shiny gold bag&quot;))</code></pre>
+</div>
+<div id="part-2-7" class="section level2">
+<h2>Part 2</h2>
+<pre class="r"><code>library(stringr)
+input &lt;- readLines(&quot;2020/07-input&quot;)
+
+bags &lt;- str_extract_all(input, &quot;(?&lt;=[0-9] ).*?bag&quot;)
+number &lt;- str_extract_all(input, &quot;[0-9]+&quot;)
+number &lt;- lapply(number, as.integer)
+names(number) &lt;- names(bags) &lt;- str_extract(input, &quot;^.+?bag&quot;)
+
+find_size &lt;- function(x, n) {
+  contains &lt;- bags[[x]]
+  if (length(contains) == 0) return(n)
+  n_bags &lt;- map2_int(contains, number[[x]], find_size)
+  sum(c(n_bags, 1L) * n)
+}
+
+find_size(x = &quot;shiny gold bag&quot;, n = 1) - 1</code></pre>
+</div>
+</div>
 
 
 

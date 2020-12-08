@@ -328,37 +328,76 @@ password_df %>%
   nrow()
 ```
 
-```{r, include=FALSE}
-knitr::knit_exit()
-```
-
 # Day 5
 
 ## Part 1
 
 ```{r}
+input <- readLines("2020/05-input")
 
+input <- gsub(c("[FL]"), c("0"), input)
+input <- gsub(c("[BR]"), c("1"), input)
+
+id <- strtoi(input, base = 2)
+
+max(id)
 ```
 
 ## Part 2
 
 ```{r}
-
+setdiff(seq(min(id), max(id)), id)
 ```
-
-
-# Day 6
 
 ## Part 1
 
 ```{r}
+library(tidyverse)
+id <- read_lines("2020/05-input") %>%
+  str_replace_all(c("[FL]" = "0", "[BR]" = "1")) %>%
+  strtoi(base = 2)
 
+max(id)
 ```
 
 ## Part 2
 
 ```{r}
+setdiff(seq(min(id), max(id)), id)
+```
 
+# Day 6
+
+Tidyverse + tidytext
+
+## Part 1
+
+```{r}
+library(tidyverse)
+library(tidytext)
+
+answers <- read_file("2020/06-input") %>%
+  tibble(input = .) %>%
+  unnest_paragraphs(text, input) %>%
+  rowid_to_column("group_id") %>%
+  unnest_tokens(text, text) %>%
+  rowid_to_column("person_id") %>%
+  unnest_characters(text, text)
+
+answers %>%
+  count(group_id, text) %>%
+  nrow()
+```
+
+## Part 2
+
+```{r}
+answers %>%
+  group_by(group_id) %>%
+  mutate(group_size = n_distinct(person_id)) %>%
+  count(group_size, text) %>%
+  filter(group_size == n) %>%
+  nrow()
 ```
 
 # Day 7
@@ -366,13 +405,56 @@ knitr::knit_exit()
 ## Part 1
 
 ```{r}
+library(stringr)
+input <- readLines("2020/07-input")
 
+containing_bag <- function(x) {
+  str_extract(str_subset(input, paste0(".+", x)), "^.+?bag")
+}
+
+used_bags <- c()
+
+new_bags <- "shiny gold bag"
+
+repeat {
+  newer_bags <- unique(unlist(lapply(new_bags, containing_bag)))
+  
+  if (length(newer_bags) == 0) {
+    used_bags <- c(used_bags, new_bags)
+    break
+  }
+  
+  used_bags <- c(used_bags, new_bags)
+  
+  new_bags <- setdiff(newer_bags, used_bags)
+}
+
+length(setdiff(used_bags, "shiny gold bag"))
 ```
 
 ## Part 2
 
 ```{r}
+library(stringr)
+input <- readLines("2020/07-input")
 
+bags <- str_extract_all(input, "(?<=[0-9] ).*?bag")
+number <- str_extract_all(input, "[0-9]+")
+number <- lapply(number, as.integer)
+names(number) <- names(bags) <- str_extract(input, "^.+?bag")
+
+find_size <- function(x, n) {
+  contains <- bags[[x]]
+  if (length(contains) == 0) return(n)
+  n_bags <- map2_int(contains, number[[x]], find_size)
+  sum(c(n_bags, 1L) * n)
+}
+
+find_size(x = "shiny gold bag", n = 1) - 1
+```
+
+```{r, include=FALSE}
+knitr::knit_exit()
 ```
 
 # Day 8
