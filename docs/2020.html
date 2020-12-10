@@ -794,6 +794,109 @@ find_size &lt;- function(x, n) {
 find_size(x = &quot;shiny gold bag&quot;, n = 1) - 1</code></pre>
 </div>
 </div>
+<div id="day-8" class="section level1">
+<h1>Day 8</h1>
+<div id="part-1-8" class="section level2">
+<h2>Part 1</h2>
+<pre class="r"><code>input &lt;- readLines(&quot;2020/08-input&quot;)
+
+run &lt;- function(input, part2 = FALSE) {
+  len &lt;- length(input)
+  n_times &lt;- integer(len)
+
+  accumulator &lt;- 0
+
+  i &lt;- 1
+
+  repeat {
+    x &lt;- strsplit(input[i], &quot; &quot;)[[1]]
+    
+    n_times[i] &lt;- n_times[i] + 1
+    
+    if (i &gt; len) {
+      return(accumulator)
+    }
+    if (n_times[i] == 2) {
+      if (part2) {
+        return(NA)
+      } else {
+        return(accumulator)
+      }
+    }
+    
+    if (x[1] == &quot;nop&quot;) {
+      i &lt;- i + 1
+    } else if (x[1] == &quot;acc&quot;) {
+      accumulator &lt;- accumulator + readr::parse_number(x[2])
+      i &lt;- i + 1
+    } else if (x[1] == &quot;jmp&quot;) {
+      i &lt;- i + readr::parse_number(x[2])
+    }
+  }
+}
+
+run(input)</code></pre>
+</div>
+<div id="part-2-8" class="section level2">
+<h2>Part 2</h2>
+<pre class="r"><code>library(stringr)
+for (i in seq_along(input)) {
+  input0 &lt;- input
+  if (str_detect(input0[i], &quot;acc&quot;)) next
+
+  if (str_detect(input0[i], &quot;nop&quot;)) {
+    input0[i] &lt;- str_replace(input0[i], &quot;nop&quot;, &quot;jmp&quot;)
+  } else {
+    input0[i] &lt;- str_replace(input0[i], &quot;jmp&quot;, &quot;nop&quot;)
+  }
+  
+  res &lt;- run(input0, part2 = TRUE)
+  if(!is.na(res)) break
+}
+res</code></pre>
+</div>
+</div>
+<div id="day-9" class="section level1">
+<h1>Day 9</h1>
+<div id="part-1-9" class="section level2">
+<h2>Part 1</h2>
+<pre class="r"><code>input &lt;- as.numeric(readLines(&quot;2020/09-input&quot;))
+
+i &lt;- 1
+
+repeat {
+  sums &lt;- colSums(combn(input[seq(i, i + 24)], 2))
+  if(!any(input[i + 25] == sums)) break
+  i &lt;- i + 1
+}
+
+input[i + 25]</code></pre>
+</div>
+<div id="part-2-9" class="section level2">
+<h2>Part 2</h2>
+<pre class="r"><code>input &lt;- as.numeric(readLines(&quot;2020/09-input&quot;))
+
+target &lt;- input[i + 25] # My result for Part 1
+
+i &lt;- 1
+step &lt;- 1
+
+repeat {
+  res &lt;- sum(input[seq(i, i + step)])
+  
+  if (res == target) break
+  
+  if (res &gt; target) {
+    i &lt;- i + 1
+    step &lt;- 1
+    next
+  }
+  step &lt;- step + 1
+}
+
+sum(range(input[seq(i, i + step)]))</code></pre>
+</div>
+</div>
 
 
 

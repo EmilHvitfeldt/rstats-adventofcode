@@ -453,22 +453,69 @@ find_size <- function(x, n) {
 find_size(x = "shiny gold bag", n = 1) - 1
 ```
 
-```{r, include=FALSE}
-knitr::knit_exit()
-```
-
 # Day 8
 
 ## Part 1
 
 ```{r}
+input <- readLines("2020/08-input")
 
+run <- function(input, part2 = FALSE) {
+  len <- length(input)
+  n_times <- integer(len)
+
+  accumulator <- 0
+
+  i <- 1
+
+  repeat {
+    x <- strsplit(input[i], " ")[[1]]
+    
+    n_times[i] <- n_times[i] + 1
+    
+    if (i > len) {
+      return(accumulator)
+    }
+    if (n_times[i] == 2) {
+      if (part2) {
+        return(NA)
+      } else {
+        return(accumulator)
+      }
+    }
+    
+    if (x[1] == "nop") {
+      i <- i + 1
+    } else if (x[1] == "acc") {
+      accumulator <- accumulator + readr::parse_number(x[2])
+      i <- i + 1
+    } else if (x[1] == "jmp") {
+      i <- i + readr::parse_number(x[2])
+    }
+  }
+}
+
+run(input)
 ```
 
 ## Part 2
 
 ```{r}
+library(stringr)
+for (i in seq_along(input)) {
+  input0 <- input
+  if (str_detect(input0[i], "acc")) next
 
+  if (str_detect(input0[i], "nop")) {
+    input0[i] <- str_replace(input0[i], "nop", "jmp")
+  } else {
+    input0[i] <- str_replace(input0[i], "jmp", "nop")
+  }
+  
+  res <- run(input0, part2 = TRUE)
+  if(!is.na(res)) break
+}
+res
 ```
 
 # Day 9
@@ -476,13 +523,47 @@ knitr::knit_exit()
 ## Part 1
 
 ```{r}
+input <- as.numeric(readLines("2020/09-input"))
 
+i <- 1
+
+repeat {
+  sums <- colSums(combn(input[seq(i, i + 24)], 2))
+  if(!any(input[i + 25] == sums)) break
+  i <- i + 1
+}
+
+input[i + 25]
 ```
 
 ## Part 2
 
 ```{r}
+input <- as.numeric(readLines("2020/09-input"))
 
+target <- input[i + 25] # My result for Part 1
+
+i <- 1
+step <- 1
+
+repeat {
+  res <- sum(input[seq(i, i + step)])
+  
+  if (res == target) break
+  
+  if (res > target) {
+    i <- i + 1
+    step <- 1
+    next
+  }
+  step <- step + 1
+}
+
+sum(range(input[seq(i, i + step)]))
+```
+
+```{r, include=FALSE}
+knitr::knit_exit()
 ```
 
 # Day 10
