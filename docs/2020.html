@@ -897,6 +897,27 @@ repeat {
 sum(range(input[seq(i, i + step)]))</code></pre>
 </div>
 </div>
+<div id="day-10" class="section level1">
+<h1>Day 10</h1>
+<div id="part-1-10" class="section level2">
+<h2>Part 1</h2>
+<pre class="r"><code>input &lt;- as.integer(readLines(&quot;2020/10-input&quot;))
+
+res &lt;- table(diff(sort(input)))
+
+prod(res + 1)</code></pre>
+</div>
+<div id="part-2-10" class="section level2">
+<h2>Part 2</h2>
+<pre class="r"><code>input &lt;- sort(as.integer(readLines(&quot;2020/10-input&quot;)))
+
+runs &lt;- rle(c(diff(c(0, input))))
+weights &lt;- c(1, 2, 4, 7)
+
+options(scipen = 999)
+prod(weights[runs$lengths[runs$values == 1]])</code></pre>
+</div>
+</div>
 
 
 

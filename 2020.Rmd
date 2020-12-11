@@ -562,22 +562,32 @@ repeat {
 sum(range(input[seq(i, i + step)]))
 ```
 
-```{r, include=FALSE}
-knitr::knit_exit()
-```
-
 # Day 10
 
 ## Part 1
 
 ```{r}
+input <- as.integer(readLines("2020/10-input"))
 
+res <- table(diff(sort(input)))
+
+prod(res + 1)
 ```
 
 ## Part 2
 
 ```{r}
+input <- sort(as.integer(readLines("2020/10-input")))
 
+runs <- rle(c(diff(c(0, input))))
+weights <- c(1, 2, 4, 7)
+
+options(scipen = 999)
+prod(weights[runs$lengths[runs$values == 1]])
+```
+
+```{r, include=FALSE}
+knitr::knit_exit()
 ```
 
 # Day 11
@@ -585,13 +595,122 @@ knitr::knit_exit()
 ## Part 1
 
 ```{r}
+input <- readLines("2020/11-inpurt")
 
+# turn input into logical matrix
+mat <- strsplit(input, "") %>%
+  reduce(rbind)
+
+replace <- mat
+
+repeat {
+for (i in seq_len(nrow(mat))) {
+  for (j in seq_len(ncol(mat))) {
+    if (mat[i, j] == ".") next
+    
+    temp_mat <- mat
+    temp_mat[i, j] <- ""
+    
+    conv <- temp_mat[seq(max(i-1, 1), min(i+1, nrow(mat))),
+                     seq(max(j-1, 1), min(j+1, ncol(mat)))]
+    
+    
+    
+    if (mat[i, j] == "L") {
+      if (all(conv != "#")) {
+        replace[i, j] <- "#"
+      }
+    }
+    
+    if (mat[i, j] == "#") {
+       if (sum(conv == "#") >= 4) {
+        replace[i, j] <- "L"
+      }
+    }
+  }
+}
+
+if (identical(mat, replace)) break
+
+mat <- replace
+
+}
+
+
+sum(mat == "#")
 ```
 
 ## Part 2
 
 ```{r}
+input <- readLines("2020/11-inpurt")
 
+# turn input into logical matrix
+mat <- strsplit(input, "") %>%
+  reduce(rbind)
+
+find_neighbor <- function(mat, i, j, x, y) {
+  res <- "."
+  i <- i + y
+  j <- j + x
+  while (i > 0 & j > 0 & j <= ncol(mat) & i <= nrow(mat)) {
+    value <- mat[i,j]
+    if (value != ".") {
+      res <- value
+      break
+    }
+    i <- i + y
+    j <- j + x
+  }
+  res
+}
+
+find_all_neighbors <- function(mat, i, j) {
+  
+  up <-   find_neighbor(mat, i, j, 0, -1)
+  down <- find_neighbor(mat, i, j, 0, 1)
+  right <- find_neighbor(mat, i, j, -1, 0)
+  left <-  find_neighbor(mat, i, j, 1, 0)
+  
+  upright <- find_neighbor(mat, i, j, 1, -1)
+  upleft <- find_neighbor(mat, i, j, -1, -1)
+  downright <- find_neighbor(mat, i, j, 1, 1)
+  downleft <- find_neighbor(mat, i, j, -1, 1)
+
+  c(up, down, right, left, upright, upleft, downright, downleft)
+}
+
+replace <- mat
+
+repeat {
+for (i in seq_len(nrow(mat))) {
+  for (j in seq_len(ncol(mat))) {
+    if (mat[i, j] == ".") next
+    
+    conv <- find_all_neighbors(mat, i, j)
+    
+    
+    if (mat[i, j] == "L") {
+      if (all(conv != "#")) {
+        replace[i, j] <- "#"
+      }
+    }
+    
+    if (mat[i, j] == "#") {
+       if (sum(conv == "#") >= 5) {
+        replace[i, j] <- "L"
+      }
+    }
+  }
+}
+
+if (identical(mat, replace)) break
+
+mat <- replace
+}
+
+
+sum(mat == "#")
 ```
 
 # Day 12
