@@ -918,6 +918,227 @@ options(scipen = 999)
 prod(weights[runs$lengths[runs$values == 1]])</code></pre>
 </div>
 </div>
+<div id="day-11" class="section level1">
+<h1>Day 11</h1>
+<div id="part-1-11" class="section level2">
+<h2>Part 1</h2>
+<pre class="r"><code>input &lt;- readLines(&quot;2020/11-inpurt&quot;)
+
+# turn input into logical matrix
+mat &lt;- strsplit(input, &quot;&quot;) %&gt;%
+  reduce(rbind)
+
+replace &lt;- mat
+
+repeat {
+for (i in seq_len(nrow(mat))) {
+  for (j in seq_len(ncol(mat))) {
+    if (mat[i, j] == &quot;.&quot;) next
+    
+    temp_mat &lt;- mat
+    temp_mat[i, j] &lt;- &quot;&quot;
+    
+    conv &lt;- temp_mat[seq(max(i-1, 1), min(i+1, nrow(mat))),
+                     seq(max(j-1, 1), min(j+1, ncol(mat)))]
+    
+    
+    
+    if (mat[i, j] == &quot;L&quot;) {
+      if (all(conv != &quot;#&quot;)) {
+        replace[i, j] &lt;- &quot;#&quot;
+      }
+    }
+    
+    if (mat[i, j] == &quot;#&quot;) {
+       if (sum(conv == &quot;#&quot;) &gt;= 4) {
+        replace[i, j] &lt;- &quot;L&quot;
+      }
+    }
+  }
+}
+
+if (identical(mat, replace)) break
+
+mat &lt;- replace
+
+}
+
+
+sum(mat == &quot;#&quot;)</code></pre>
+</div>
+<div id="part-2-11" class="section level2">
+<h2>Part 2</h2>
+<pre class="r"><code>input &lt;- readLines(&quot;2020/11-inpurt&quot;)
+
+# turn input into logical matrix
+mat &lt;- strsplit(input, &quot;&quot;) %&gt;%
+  reduce(rbind)
+
+find_neighbor &lt;- function(mat, i, j, x, y) {
+  res &lt;- &quot;.&quot;
+  i &lt;- i + y
+  j &lt;- j + x
+  while (i &gt; 0 &amp; j &gt; 0 &amp; j &lt;= ncol(mat) &amp; i &lt;= nrow(mat)) {
+    value &lt;- mat[i,j]
+    if (value != &quot;.&quot;) {
+      res &lt;- value
+      break
+    }
+    i &lt;- i + y
+    j &lt;- j + x
+  }
+  res
+}
+
+find_all_neighbors &lt;- function(mat, i, j) {
+  
+  up &lt;-   find_neighbor(mat, i, j, 0, -1)
+  down &lt;- find_neighbor(mat, i, j, 0, 1)
+  right &lt;- find_neighbor(mat, i, j, -1, 0)
+  left &lt;-  find_neighbor(mat, i, j, 1, 0)
+  
+  upright &lt;- find_neighbor(mat, i, j, 1, -1)
+  upleft &lt;- find_neighbor(mat, i, j, -1, -1)
+  downright &lt;- find_neighbor(mat, i, j, 1, 1)
+  downleft &lt;- find_neighbor(mat, i, j, -1, 1)
+
+  c(up, down, right, left, upright, upleft, downright, downleft)
+}
+
+replace &lt;- mat
+
+repeat {
+for (i in seq_len(nrow(mat))) {
+  for (j in seq_len(ncol(mat))) {
+    if (mat[i, j] == &quot;.&quot;) next
+    
+    conv &lt;- find_all_neighbors(mat, i, j)
+    
+    
+    if (mat[i, j] == &quot;L&quot;) {
+      if (all(conv != &quot;#&quot;)) {
+        replace[i, j] &lt;- &quot;#&quot;
+      }
+    }
+    
+    if (mat[i, j] == &quot;#&quot;) {
+       if (sum(conv == &quot;#&quot;) &gt;= 5) {
+        replace[i, j] &lt;- &quot;L&quot;
+      }
+    }
+  }
+}
+
+if (identical(mat, replace)) break
+
+mat &lt;- replace
+}
+
+
+sum(mat == &quot;#&quot;)</code></pre>
+</div>
+</div>
+<div id="day-12" class="section level1">
+<h1>Day 12</h1>
+<div id="part-1-12" class="section level2">
+<h2>Part 1</h2>
+<pre class="r"><code>input &lt;- readLines(&quot;2020/12-input&quot;)
+
+ship &lt;- c(0, 0)
+direction &lt;- c(1, 0)
+
+rotate &lt;- function(x, phi) {
+  c(x[1] * cos(phi * pi / 180) - x[2] * sin(phi * pi / 180),
+    x[1] * sin(phi * pi / 180) + x[2] * cos(phi * pi / 180))
+}
+
+for (i in input) {
+  value &lt;- as.numeric(str_extract(i, &quot;[0-9]+&quot;))
+  switch(
+    substr(i, 1, 1),
+    N = {ship[2] &lt;- ship[2] + value},
+    S = {ship[2] &lt;- ship[2] - value},
+    E = {ship[1] &lt;- ship[1] + value},
+    W = {ship[1] &lt;- ship[1] - value},
+    L = {direction &lt;- rotate(direction, value)},
+    R = { direction &lt;- rotate(direction, -value)},
+    F = {ship &lt;- ship + direction * value}
+  )
+}
+
+sum(abs(ship))</code></pre>
+</div>
+<div id="part-2-12" class="section level2">
+<h2>Part 2</h2>
+<pre class="r"><code>input &lt;- readLines(&quot;2020/12-input&quot;)
+
+ship &lt;- c(0, 0)
+
+waypoint &lt;- c(10, 1)
+
+rotate &lt;- function(x, phi) {
+  c(x[1] * cos(phi * pi / 180) - x[2] * sin(phi * pi / 180),
+    x[1] * sin(phi * pi / 180) + x[2] * cos(phi * pi / 180))
+}
+
+for (i in input) {
+  value &lt;- as.numeric(str_extract(i, &quot;[0-9]+&quot;))
+  
+  switch(
+    substr(i, 1, 1),
+    N = {waypoint[2] &lt;- waypoint[2] + value},
+    S = {waypoint[2] &lt;- waypoint[2] - value},
+    E = {waypoint[1] &lt;- waypoint[1] + value},
+    W = {waypoint[1] &lt;- waypoint[1] - value},
+    L = {waypoint &lt;- rotate(waypoint, value)},
+    R = {waypoint &lt;- rotate(waypoint, -value)},
+    F = {ship &lt;- ship + waypoint * value}
+  )
+}
+
+sum(abs(ship))</code></pre>
+</div>
+</div>
+<div id="day-13" class="section level1">
+<h1>Day 13</h1>
+<div id="part-1-13" class="section level2">
+<h2>Part 1</h2>
+<pre class="r"><code>input &lt;- readLines(&quot;2020/13-input&quot;)
+
+target &lt;- as.integer(input[1])
+ids &lt;- as.integer(str_extract_all(input[2], &quot;[0-9]+&quot;)[[1]])
+
+time_past &lt;- ceiling(target / ids) * ids
+which_min &lt;- min(time_past) == time_past
+
+(time_past[which_min] - target) * ids[which_min]</code></pre>
+</div>
+<div id="part-2-13" class="section level2">
+<h2>Part 2</h2>
+<pre class="r"><code>input &lt;- readLines(&quot;2020/13-input&quot;)
+
+ids &lt;- as.numeric(str_split(input[2], &quot;,&quot;)[[1]])</code></pre>
+<pre><code>## Warning: NAs introduced by coercion</code></pre>
+<pre class="r"><code>offset &lt;- seq_along(ids) - 1
+offset &lt;- offset[!is.na(ids)]
+ids &lt;- ids[!is.na(ids)]
+
+timestamp &lt;- 1
+step &lt;- 1
+
+for (i in seq_along(ids)) {
+  repeat {
+  if ((timestamp + offset[i]) %% ids[i] == 0) break
+  timestamp &lt;- timestamp + step
+  }
+  
+  step &lt;- prod(ids[seq_len(i)])
+}
+
+options(scipen = 999)
+timestamp</code></pre>
+</div>
+</div>
 
 
 

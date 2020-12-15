@@ -586,10 +586,6 @@ options(scipen = 999)
 prod(weights[runs$lengths[runs$values == 1]])
 ```
 
-```{r, include=FALSE}
-knitr::knit_exit()
-```
-
 # Day 11
 
 ## Part 1
@@ -718,13 +714,63 @@ sum(mat == "#")
 ## Part 1
 
 ```{r}
+input <- readLines("2020/12-input")
 
+ship <- c(0, 0)
+direction <- c(1, 0)
+
+rotate <- function(x, phi) {
+  c(x[1] * cos(phi * pi / 180) - x[2] * sin(phi * pi / 180),
+    x[1] * sin(phi * pi / 180) + x[2] * cos(phi * pi / 180))
+}
+
+for (i in input) {
+  value <- as.numeric(str_extract(i, "[0-9]+"))
+  switch(
+    substr(i, 1, 1),
+    N = {ship[2] <- ship[2] + value},
+    S = {ship[2] <- ship[2] - value},
+    E = {ship[1] <- ship[1] + value},
+    W = {ship[1] <- ship[1] - value},
+    L = {direction <- rotate(direction, value)},
+    R = { direction <- rotate(direction, -value)},
+    F = {ship <- ship + direction * value}
+  )
+}
+
+sum(abs(ship))
 ```
 
 ## Part 2
 
 ```{r}
+input <- readLines("2020/12-input")
 
+ship <- c(0, 0)
+
+waypoint <- c(10, 1)
+
+rotate <- function(x, phi) {
+  c(x[1] * cos(phi * pi / 180) - x[2] * sin(phi * pi / 180),
+    x[1] * sin(phi * pi / 180) + x[2] * cos(phi * pi / 180))
+}
+
+for (i in input) {
+  value <- as.numeric(str_extract(i, "[0-9]+"))
+  
+  switch(
+    substr(i, 1, 1),
+    N = {waypoint[2] <- waypoint[2] + value},
+    S = {waypoint[2] <- waypoint[2] - value},
+    E = {waypoint[1] <- waypoint[1] + value},
+    W = {waypoint[1] <- waypoint[1] - value},
+    L = {waypoint <- rotate(waypoint, value)},
+    R = {waypoint <- rotate(waypoint, -value)},
+    F = {ship <- ship + waypoint * value}
+  )
+}
+
+sum(abs(ship))
 ```
 
 # Day 13
@@ -732,13 +778,45 @@ sum(mat == "#")
 ## Part 1
 
 ```{r}
+input <- readLines("2020/13-input")
 
+target <- as.integer(input[1])
+ids <- as.integer(str_extract_all(input[2], "[0-9]+")[[1]])
+
+time_past <- ceiling(target / ids) * ids
+which_min <- min(time_past) == time_past
+
+(time_past[which_min] - target) * ids[which_min]
 ```
 
 ## Part 2
 
 ```{r}
+input <- readLines("2020/13-input")
 
+ids <- as.numeric(str_split(input[2], ",")[[1]])
+offset <- seq_along(ids) - 1
+offset <- offset[!is.na(ids)]
+ids <- ids[!is.na(ids)]
+
+timestamp <- 1
+step <- 1
+
+for (i in seq_along(ids)) {
+  repeat {
+  if ((timestamp + offset[i]) %% ids[i] == 0) break
+  timestamp <- timestamp + step
+  }
+  
+  step <- prod(ids[seq_len(i)])
+}
+
+options(scipen = 999)
+timestamp
+```
+
+```{r, include=FALSE}
+knitr::knit_exit()
 ```
 
 # Day 14
