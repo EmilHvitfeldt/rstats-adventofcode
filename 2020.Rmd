@@ -815,22 +815,83 @@ options(scipen = 999)
 timestamp
 ```
 
-```{r, include=FALSE}
-knitr::knit_exit()
-```
-
 # Day 14
 
 ## Part 1
 
 ```{r}
+library(stringr)
+intTo36 <- function(x) {
+  as.character(c(rep(0, 4), rev(as.integer(intToBits(x)))))
+}
 
+`[<-.memory` <- function(x, i, value) {
+  res <- intTo36(value)
+  res[mask != "X"] <- mask[mask != "X"]
+  x[[i]] <- res
+  x
+}
+
+input <- readLines("2020/14-input")
+
+mem <- list()
+attr(mem, "class") <- "memory"
+
+for (line in input) {
+  if (grepl("^mask", line)) {
+    mask <- strsplit(str_extract(line, "[X0-9]+"), "")[[1]]
+    next
+  } 
+  eval(parse(text = line))
+}
+
+options(scipen = 999)
+sum(map_dbl(mem, ~ sum(as.numeric(.x) * (2 ^ seq(35, 0)))))
 ```
 
 ## Part 2
 
-```{r}
+```{r, eval=FALSE}
+res2adresses <- function(x) {
+  powers <- (2 ^ seq(35, 0))
+  floating <- which(x == "X")
+  float_value <- replicate(length(floating), c(TRUE, FALSE), simplify = FALSE)
+  float_value <- expand.grid(float_value)
+  float_value <- as.matrix(float_value) %*% powers[floating]
+  float_value <- as.numeric(float_value)
+  x[x == "X"] <- "0"
+  find_value(x) + float_value
+}
 
+`[<-.memory` <- function(x, i, value) {
+  masked_address <- intTo36(i)
+  masked_address[mask != "0"] <- mask[mask != "0"]
+  addresses <- res2adresses(masked_address)
+  for (address in addresses) {
+    x[[as.character(address)]] <- intTo36(value)
+  }
+  x
+}
+
+input <- readLines("2020/14-input")
+
+mem <- list()
+attr(mem, "class") <- "memory"
+
+for (line in input) {
+  if (grepl("^mask", line)) {
+    mask <- strsplit(str_extract(line, "[X0-9]+"), "")[[1]]
+    next
+  } 
+  eval(parse(text = line))
+}
+
+options(scipen = 999)
+sum(map_dbl(mem, ~ sum(as.numeric(.x) * (2 ^ seq(35, 0)))))
+```
+
+```{r, include=FALSE}
+knitr::knit_exit()
 ```
 
 # Day 15
@@ -838,13 +899,67 @@ knitr::knit_exit()
 ## Part 1
 
 ```{r}
+input <- c(16,1,0,18,12,14,19)
 
+res <- rep(-1, 2020)
+res[seq_along(input)] <- input
+for (i in 8:2020) {
+if (sum(res == res[i- 1]) == 1) {
+  res[i] <- 0
+} else {
+  last_calls <- which(res == res[i- 1])
+  res[i] <- last_calls[length(last_calls)] - last_calls[length(last_calls) - 1]
+}
+}
+rev(res)[1]
 ```
 
 ## Part 2
 
 ```{r}
+tictoc::tic()
+input <- c(16,1,0,18,12,14,19)
 
+res <- rep(-1, 30000000)
+res[seq_along(input)] <- input
+
+for (i in 8:300000) {
+  if (sum(res == res[i- 1]) == 1) {
+    res[i] <- 0
+  } else {
+    last_calls <- which(res == res[i- 1])
+    res[i] <- last_calls[length(last_calls)] - last_calls[length(last_calls) - 1]
+  }
+}
+
+rev(res)[1]
+tictoc::toc()
+```
+
+
+```{r}
+input <- c(1,3,2)
+last <- list()
+for (i in seq_along(input)) {
+  last[as.character(input[i])] <- i
+}
+
+res <- rep(-1, 2020)
+res[seq_along(input)] <- input
+
+for (i in seq(length(input) + 1, 2020)) {
+  last_value <- as.character(res[i-1])
+  last_seen <- last[last_value][[1]]
+  
+if (length(last_seen) < 2) {
+  res[i] <- 0
+  last[["0"]] <- c(last[["0"]], i)
+} else {
+  res[i] <- last_seen[2] - last_seen[1]
+  res_char <- as.character(res[i])
+  last[[res_char]] <- c(last[[res_char]][length(last[[res_char]])], i)
+}
+}
 ```
 
 # Day 16
@@ -852,13 +967,60 @@ knitr::knit_exit()
 ## Part 1
 
 ```{r}
+library(tidyverse)
+input <- readLines("2020/16-input")
+breaks <- which(input == "")
 
+valid_values <- input[seq(1, min(breaks) - 1)] %>%
+  str_extract_all("[0-9]+") %>%
+  map(as.numeric) %>%
+  map(~ c(seq(.x[1], .x[2]), seq(.x[3], .x[4])))
+
+tickets <- read.csv("2020/16-input", header = FALSE,
+                    skip = which(input == "nearby tickets:"))
+
+all_valid_values <- unlist(valid_values)
+
+check_value <- function(x, ref) {
+  map_dbl(x, ~ ifelse(.x %in% ref, NA, .x))
+}
+
+wrong <- apply(tickets, 2, check_value, all_valid_values)
+
+sum(wrong, na.rm = TRUE)
 ```
 
 ## Part 2
 
 ```{r}
+valid_ticket <- tickets[rowSums(!is.na(wrong)) == 0, ]
 
+can_be <- function(x) {
+  which(map_lgl(valid_values, ~all(x %in% .x)))
+}
+
+pos <- numeric(length(valid_values))
+
+candidates <- map(valid_ticket, can_be)
+
+repeat {
+  variable_ind <- which(lengths(candidates) == 1)
+  if(length(variable_ind) == 0) break
+  
+  ref_ind <- candidates[[variable_ind]]
+  
+  pos[variable_ind] <- ref_ind
+  
+  candidates <- map(candidates, setdiff, ref_ind)
+}
+
+my_ticket <- as.numeric(str_split(input[min(breaks) + 2], ",")[[1]])
+
+fields <- input[seq(1, min(breaks) - 1)] %>%
+  str_detect("^departure")
+
+options(scipen = 999)
+prod(my_ticket[fields[pos]])
 ```
 
 # Day 17
@@ -866,13 +1028,122 @@ knitr::knit_exit()
 ## Part 1
 
 ```{r}
+library(dplyr)
+library(tidyr)
+input <- readLines("2020/17-input")
 
+
+start <- tibble(
+  x = rep(seq(7, 14), 8),
+  y = rev(rep(seq(7, 14), each = 8)),
+  z = 10,
+  state = strsplit(input, "") %>% unlist()
+)
+
+space <- expand_grid(x = seq(1, 20), y = seq(1, 20), z = seq(1, 20)) %>%
+  left_join(start, by = c("x", "y", "z")) %>%
+  mutate(state = if_else(is.na(state), ".", state)) %>%
+  mutate(row = row_number())
+```
+
+```{r}
+find_neighbors <- function(dat) {
+  space %>%
+  filter(abs(x - dat$x) <= 1, abs(y - dat$y) <= 1, abs(z - dat$z) <= 1,
+         !(x == dat$x & y == dat$y & z == dat$z)) %>%
+  pull(row)
+}
+
+all_neighbors <- map(seq_len(nrow(space)), ~find_neighbors(space[.x, ]))
+```
+
+```{r}
+next_state <- function(x, nbs) {
+  if (x == "#") {
+    if (sum(nbs == "#") %in% c(2, 3)) {
+      return("#")
+    } else {
+      return(".")
+    }
+  } else {
+    if (sum(nbs == "#") == 3) {
+      return("#")
+    } else {
+      return(".")
+    }
+  }
+}
+
+for(iter in 1:6) {
+  all_neighbors_states <- map(all_neighbors, ~ space$state[.x])
+  space$state <- map2_chr(space$state, all_neighbors_states, next_state)
+}
+
+table(space$state)
 ```
 
 ## Part 2
 
 ```{r}
+library(dplyr)
+library(tidyr)
+input <- readLines("2020/17-input")
 
+
+start <- tibble(
+  x = rep(seq(7, 14), 8),
+  y = rev(rep(seq(7, 14), each = 8)),
+  z = 0,
+  w = 0,
+  state = strsplit(input, "") %>% unlist()
+)
+
+space <- expand_grid(x = seq(1, 20), 
+                     y = seq(1, 20), 
+                     z = seq(-6, 6), 
+                     w = seq(-6, 6)) %>%
+  left_join(start, by = c("x", "y", "z", "w")) %>%
+  mutate(state = if_else(is.na(state), ".", state)) %>%
+  mutate(row = row_number())
+```
+
+```{r}
+find_neighbors <- function(dat) {
+  space %>%
+  filter(abs(x - dat$x) <= 1, 
+         abs(y - dat$y) <= 1, 
+         abs(z - dat$z) <= 1,
+         abs(w - dat$w) <= 1,
+         !(x == dat$x & y == dat$y & z == dat$z & w == dat$w)) %>%
+  pull(row)
+}
+
+all_neighbors <- map(seq_len(nrow(space)), ~find_neighbors(space[.x, ]))
+```
+
+```{r}
+next_state <- function(x, nbs) {
+  if (x == "#") {
+    if (sum(nbs == "#") %in% c(2, 3)) {
+      return("#")
+    } else {
+      return(".")
+    }
+  } else {
+    if (sum(nbs == "#") == 3) {
+      return("#")
+    } else {
+      return(".")
+    }
+  }
+}
+
+for(iter in 1:6) {
+  all_neighbors_states <- map(all_neighbors, ~ space$state[.x])
+  space$state <- map2_chr(space$state, all_neighbors_states, next_state)
+}
+
+table(space$state)
 ```
 
 # Day 18
@@ -880,13 +1151,38 @@ knitr::knit_exit()
 ## Part 1
 
 ```{r}
+library(stringr)
+library(purrr)
+input <- readLines("2020/18-input")
 
+`%+%` <- function(a, b) a + b
+`%*%` <- function(a, b) a * b
+
+eval_string <- function(x) {
+  map_dbl(x, ~eval(parse(text = .x)))
+}
+
+options(scipen = 999)
+input %>%
+  str_replace_all(c("\\+" = "%\\+%", "\\*" = "%\\*%")) %>%
+  eval_string() %>%
+  sum()
 ```
 
 ## Part 2
 
 ```{r}
+eval_string_rev <- function(x) {
+  rev_env <- new.env()
+  rev_env$`+` <- function(a, b) base::`*`(a, b)
+  rev_env$`*` <- function(a, b) base::`+`(a, b)
+  map_dbl(x, ~eval(parse(text = .x), envir = rev_env))
+}
 
+input %>%
+  str_replace_all(c("\\+" = "temp", "\\*" = "+", "temp" = "*")) %>%
+  eval_string_rev() %>%
+  sum()
 ```
 
 # Day 19
@@ -894,6 +1190,13 @@ knitr::knit_exit()
 ## Part 1
 
 ```{r}
+input <- readLines("2020/19-input")
+break_point <- which(input == "")
+
+rules <- input[seq(1, break_point - 1)]
+messages <- input[seq(break_point + 1, length(input))]
+
+rules
 
 ```
 
@@ -964,13 +1267,53 @@ knitr::knit_exit()
 ## Part 1
 
 ```{r}
+input <- readLines("2020/24-input")
 
+moves <- c(
+  e = 1 + 0i,
+  se = 0 - 1i,
+  sw = -1 - 1i,
+  w = -1 + 0i,
+  nw = 0 + 1i,
+  ne = 1 + 1i
+)
+library(stringr)
+library(purrr)
+
+flips <- input %>%
+  str_extract_all("[ns]?[ew]") %>%
+  map(~moves[.x]) %>%
+  map(sum) %>%
+  reduce(c)
+  
+flips %>%
+  table() %>%
+  {sum(. %% 2 == 1)}
 ```
 
 ## Part 2
 
 ```{r}
+n_neighbors <- function(x, y, moves) {
+  rowSums(matrix(outer(x, moves, `+`) %in% y, ncol = length(moves)))
+}
+black <- as.complex(names(table(flips)[table(flips) %% 2 == 1]))
 
+for (i in 1:100) {
+  stay_black <- n_neighbors(black, black, moves) == 1
+  
+  white_candidates <- map(black, ~.x + moves) %>%
+    unlist() %>%
+    unique()
+  
+  new_black_ind <- n_neighbors(white_candidates, black, moves) == 2
+  
+  new_black <- white_candidates[new_black_ind]
+  
+  black <- c(black[stay_black], new_black)
+}
+
+length(black)
 ```
 
 # Day 25

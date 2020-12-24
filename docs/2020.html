@@ -1139,6 +1139,78 @@ options(scipen = 999)
 timestamp</code></pre>
 </div>
 </div>
+<div id="day-14" class="section level1">
+<h1>Day 14</h1>
+<div id="part-1-14" class="section level2">
+<h2>Part 1</h2>
+<pre class="r"><code>library(stringr)
+intTo36 &lt;- function(x) {
+  as.character(c(rep(0, 4), rev(as.integer(intToBits(x)))))
+}
+
+`[&lt;-.memory` &lt;- function(x, i, value) {
+  res &lt;- intTo36(value)
+  res[mask != &quot;X&quot;] &lt;- mask[mask != &quot;X&quot;]
+  x[[i]] &lt;- res
+  x
+}
+
+input &lt;- readLines(&quot;2020/14-input&quot;)
+
+mem &lt;- list()
+attr(mem, &quot;class&quot;) &lt;- &quot;memory&quot;
+
+for (line in input) {
+  if (grepl(&quot;^mask&quot;, line)) {
+    mask &lt;- strsplit(str_extract(line, &quot;[X0-9]+&quot;), &quot;&quot;)[[1]]
+    next
+  } 
+  eval(parse(text = line))
+}
+
+options(scipen = 999)
+sum(map_dbl(mem, ~ sum(as.numeric(.x) * (2 ^ seq(35, 0)))))</code></pre>
+</div>
+<div id="part-2-14" class="section level2">
+<h2>Part 2</h2>
+<pre class="r"><code>res2adresses &lt;- function(x) {
+  powers &lt;- (2 ^ seq(35, 0))
+  floating &lt;- which(x == &quot;X&quot;)
+  float_value &lt;- replicate(length(floating), c(TRUE, FALSE), simplify = FALSE)
+  float_value &lt;- expand.grid(float_value)
+  float_value &lt;- as.matrix(float_value) %*% powers[floating]
+  float_value &lt;- as.numeric(float_value)
+  x[x == &quot;X&quot;] &lt;- &quot;0&quot;
+  find_value(x) + float_value
+}
+
+`[&lt;-.memory` &lt;- function(x, i, value) {
+  masked_address &lt;- intTo36(i)
+  masked_address[mask != &quot;0&quot;] &lt;- mask[mask != &quot;0&quot;]
+  addresses &lt;- res2adresses(masked_address)
+  for (address in addresses) {
+    x[[as.character(address)]] &lt;- intTo36(value)
+  }
+  x
+}
+
+input &lt;- readLines(&quot;2020/14-input&quot;)
+
+mem &lt;- list()
+attr(mem, &quot;class&quot;) &lt;- &quot;memory&quot;
+
+for (line in input) {
+  if (grepl(&quot;^mask&quot;, line)) {
+    mask &lt;- strsplit(str_extract(line, &quot;[X0-9]+&quot;), &quot;&quot;)[[1]]
+    next
+  } 
+  eval(parse(text = line))
+}
+
+options(scipen = 999)
+sum(map_dbl(mem, ~ sum(as.numeric(.x) * (2 ^ seq(35, 0)))))</code></pre>
+</div>
+</div>
 
 
 
