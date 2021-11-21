@@ -1,0 +1,690 @@
+---
+title: "About this site"
+description: |
+  Some additional details about the website
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(tictoc)
+knitr::opts_chunk$set()
+xaringanExtra::use_panelset()
+```
+
+```{css, echo=FALSE}
+.panel-tab {
+  flex: 1 0 20%;
+  text-align: center;
+}
+```
+
+::::: {.panelset}
+
+::: {.panel}
+
+# Day 1 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2015/01-1.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/01-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2015/01-2.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/01-2.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 2 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2015/02-1.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/02-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2015/02-2.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/02-2.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 3 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2015/03-1.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/03-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2015/03-2.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/03-2.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 4 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2015/04-1.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/04-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2015/04-2.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/04-2.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 5 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2015/05-1.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/05-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2015/05-2.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/05-2.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 6 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2015/06-1.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/06-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2015/06-2.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/06-2.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 7 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2015/07-1.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/07-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2015/07-2.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/07-2.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 8 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2015/08-1.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/08-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2015/08-2.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/08-2.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 9 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2015/09-1.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/09-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2015/09-2.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/09-2.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 10 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2015/10-1.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/10-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2015/10-2.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/10-2.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 11 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2015/11-1.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/11-1.R"))) 
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2015/11-2.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/11-2.R"))) 
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 12 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2015/12-1.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/12-1.R"))) 
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2015/12-2.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/12-2.R"))) 
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 13 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2015/13-1.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/13-1.R"))) 
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2015/13-2.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/13-2.R"))) 
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 14 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2015/14-1.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/14-1.R"))) 
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2015/14-2.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/14-2.R"))) 
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 15 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2015/15-1.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/15-1.R"))) 
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2015/15-2.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/15-2.R"))) 
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 16 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2015/16-1.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/16-1.R"))) 
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2015/16-2.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/16-2.R"))) 
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 17 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2015/17-1.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/17-1.R"))) 
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2015/17-2.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/17-2.R"))) 
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 18 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2015/18-1.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/18-1.R"))) 
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2015/18-2.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/18-2.R"))) 
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 19 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2015/19-1.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/19-1.R"))) 
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2015/19-2.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/19-2.R"))) 
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 20 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2015/20-1.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/20-1.R"))) 
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2015/20-2.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/20-2.R"))) 
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 21 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2015/21-1.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/21-1.R"))) 
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2015/21-2.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/21-2.R"))) 
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 22 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 23 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2015/23-1.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/23-1.R"))) 
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2015/23-2.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/23-2.R"))) 
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 24 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2015/24-1.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/24-1.R"))) 
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2015/24-2.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/24-2.R"))) 
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 25 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2015/25-1.R"), eval=FALSE}
+```
+
+```{r, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2015/25-1.R"))) 
+toc()
+```
+
+:::
+
+:::::

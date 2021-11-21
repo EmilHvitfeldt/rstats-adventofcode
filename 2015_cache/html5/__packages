@@ -1,0 +1,11 @@
+base
+knitr
+tictoc
+magrittr
+stringr
+dplyr
+tidyr
+purrr
+numbers
+bit
+bit64
