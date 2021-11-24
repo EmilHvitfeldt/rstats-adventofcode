@@ -1,0 +1,140 @@
+
+/* base variables */
+
+/* Edit the CSS properties in this file to create a custom
+   Distill theme. Only edit values in the right column
+   for each row; values shown are the CSS defaults.
+   To return any property to the default,
+   you may set its value to: unset
+   All rows must end with a semi-colon.                      */
+
+/* Optional: embed custom fonts here with `@import`          */
+/* This must remain at the top of this file.                 */
+@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700);
+
+
+html {
+  /*-- Main font sizes --*/
+  --title-size:      50px;
+  --body-size:       1.06rem;
+  --code-size:       14px;
+  --aside-size:      12px;
+  --fig-cap-size:    13px;
+  /*-- Main font colors --*/
+  --title-color:     #eeeeee;
+  --header-color:    #cccccc;
+  --body-color:      #cccccc;
+  --aside-color:     #cccccc;
+  --fig-cap-color:   #cccccc;
+  /*-- Specify custom fonts ~~~ must be imported above   --*/
+  --heading-font:    'Source Code Pro';
+  --mono-font:       'Source Code Pro';
+  --body-font:       'Source Code Pro';
+  --navbar-font:     'Source Code Pro';  /* websites + blogs only */
+}
+
+/*-- ARTICLE METADATA --*/
+d-byline {
+  --heading-size:    0.6rem;
+  --heading-color:   rgba(0, 0, 0, 0.5);
+  --body-size:       0.8rem;
+  --body-color:      rgba(0, 0, 0, 0.8);
+}
+
+/*-- ARTICLE TABLE OF CONTENTS --*/
+.d-contents {
+  --heading-size:    18px;
+  --contents-size:   13px;
+}
+
+/*-- ARTICLE APPENDIX --*/
+d-appendix {
+  --heading-size:    15px;
+  --heading-color:   rgba(0, 0, 0, 0.65);
+  --text-size:       0.8em;
+  --text-color:      rgba(0, 0, 0, 0.5);
+}
+
+/*-- WEBSITE HEADER + FOOTER --*/
+/* These properties only apply to Distill sites and blogs  */
+
+.distill-site-header {
+  --title-size:       18px;
+  --text-color:       rgba(255, 255, 255, 0.8);
+  --text-size:        15px;
+  --hover-color:      white;
+  --bkgd-color:       #0f0f23;
+}
+
+.distill-site-footer {
+  --text-color:       rgba(255, 255, 255, 0.8);
+  --text-size:        15px;
+  --hover-color:      white;
+  --bkgd-color:       #0f0f23;
+}
+
+/*-- Additional custom styles --*/
+/* Add any additional CSS rules below                      */
+
+d-article div.sourceCode pre {
+  padding: 10px;
+}
+
+d-article div.sourceCode {
+  background-color: #252C34;
+}
+
+code {
+  color: #cccccc;
+}
+
+.panelset .panel-tabs .panel-tab.panel-tab-active {
+  color: #00cc00 !important;
+}
+
+.panelset .panel-tabs .panel-tab > a {
+ color: #cccccc !important;
+}
+
+.distill-site-header a {
+    color: #00cc00;
+    text-shadow: 0 0 2px #00cc00, 0 0 5px #00cc00;
+}
+
+body {
+    background: #0f0f23;
+    color: #cccccc;
+    font-family: "Source Code Pro", monospace;
+    font-size: 14pt;
+    min-width: 60em;
+}
+
+code span.al { color: #EBB626; } /* Alert */
+code span.an { color: #39B81F; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #EBB626; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #39B81F; } /* ControlFlow */
+code span.ch { color: #EBB626; } /* Char */
+code span.cn { color: #D63131; } /* Constant */
+code span.co { color: #39B81F; } /* Comment */
+code span.cv { color: #39B81F; font-style: italic; } /* CommentVar */
+code span.do { color: #39B81F; font-style: italic; } /* Documentation */
+code span.dt { color: #EBB626; } /* DataType */
+code span.dv { color: #EBB626; } /* DecVal */
+code span.er { color: #EBB626; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #EBB626; } /* Float */
+code span.fu { color: #cccccc; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #39B81F; } /* Information */
+code span.kw { color: #39B81F; } /* Keyword */
+code span.op { color: #39B81F; } /* Operator */
+code span.ot { color: #39B81F; } /* Other */
+code span.pp { color: #EBB626; } /* Preprocessor */
+code span.sc { color: #39B81F; } /* SpecialChar */
+code span.ss { color: #EBB626; } /* SpecialString */
+code span.st { color: #EBB626; } /* String */
+code span.va { color: #cccccc; } /* Variable */
+code span.vs { color: #EBB626; } /* VerbatimString */
+code span.wa { color: #39B81F; font-style: italic; } /* Warning */

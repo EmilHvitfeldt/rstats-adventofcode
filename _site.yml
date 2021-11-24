@@ -1,14 +1,12 @@
 name: "rstats-adventofcode"
 title: "R Advent Of Code"
+theme: theme.css
 description: |
   R Advent Of Code
 output_dir: "docs"
 navbar:
-  right:
+  left:
     - text: "2015"
       href: 2015.html
-    - text: "Home"
-      href: index.html
-    - text: "About"
-      href: about.html
-output: distill::distill_article
+output:
+  distill::distill_article
