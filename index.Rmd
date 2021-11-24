@@ -1,7 +1,7 @@
 ---
 title: "R Advent Of Code"
 description: |
-  Welcome to the website. I hope you enjoy it!
+  Emil Hvitfeldt's solutions
 site: distill::distill_website
 ---
 
@@ -15,4 +15,8 @@ knitr::opts_chunk$set(echo = FALSE)
 # https://rstudio.github.io/distill/publish_website.html#github-pages
 
 ```
+
+This website is created using the [emilhvitfeldt/rstats-adventofcode](https://github.com/emilhvitfeldt/rstats-adventofcode) repository. I try to save all my solution in one place here.
+
+I don't have any rules I follow. I will end up doing most solutions using base R because of the nanture of the problems. I will be using both `purrr` and `stringr` when the need comes up, I don't hate myself. I'm here to write code and have fun doing it.
 

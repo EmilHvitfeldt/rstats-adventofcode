@@ -1,7 +1,5 @@
 ---
-title: "About this site"
-description: |
-  Some additional details about the website
+title: "My 2015 Solutions"
 ---
 
 ```{r setup, include=FALSE}
@@ -29,7 +27,7 @@ xaringanExtra::use_panelset()
 ```{r, code=readLines("2015/01-1.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day01part1, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/01-1.R")))
 toc()
@@ -40,7 +38,7 @@ toc()
 ```{r, code=readLines("2015/01-2.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day01part2, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/01-2.R")))
 toc()
@@ -57,7 +55,7 @@ toc()
 ```{r, code=readLines("2015/02-1.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day02part1, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/02-1.R")))
 toc()
@@ -68,7 +66,7 @@ toc()
 ```{r, code=readLines("2015/02-2.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day02part2, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/02-2.R")))
 toc()
@@ -85,7 +83,7 @@ toc()
 ```{r, code=readLines("2015/03-1.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day03part1, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/03-1.R")))
 toc()
@@ -96,7 +94,7 @@ toc()
 ```{r, code=readLines("2015/03-2.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day03part2, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/03-2.R")))
 toc()
@@ -113,7 +111,7 @@ toc()
 ```{r, code=readLines("2015/04-1.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day04part1, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/04-1.R")))
 toc()
@@ -124,7 +122,7 @@ toc()
 ```{r, code=readLines("2015/04-2.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day04part2, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/04-2.R")))
 toc()
@@ -141,7 +139,7 @@ toc()
 ```{r, code=readLines("2015/05-1.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day05part1, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/05-1.R")))
 toc()
@@ -152,7 +150,7 @@ toc()
 ```{r, code=readLines("2015/05-2.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day05part2, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/05-2.R")))
 toc()
@@ -169,7 +167,7 @@ toc()
 ```{r, code=readLines("2015/06-1.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day06part1, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/06-1.R")))
 toc()
@@ -180,7 +178,7 @@ toc()
 ```{r, code=readLines("2015/06-2.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day06part2, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/06-2.R")))
 toc()
@@ -197,7 +195,7 @@ toc()
 ```{r, code=readLines("2015/07-1.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day07part1, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/07-1.R")))
 toc()
@@ -208,7 +206,7 @@ toc()
 ```{r, code=readLines("2015/07-2.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day07part2, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/07-2.R")))
 toc()
@@ -225,7 +223,7 @@ toc()
 ```{r, code=readLines("2015/08-1.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day08part1, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/08-1.R")))
 toc()
@@ -236,7 +234,7 @@ toc()
 ```{r, code=readLines("2015/08-2.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day08part2, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/08-2.R")))
 toc()
@@ -253,7 +251,7 @@ toc()
 ```{r, code=readLines("2015/09-1.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day09part1, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/09-1.R")))
 toc()
@@ -264,7 +262,7 @@ toc()
 ```{r, code=readLines("2015/09-2.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day09part2, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/09-2.R")))
 toc()
@@ -281,7 +279,7 @@ toc()
 ```{r, code=readLines("2015/10-1.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day10part1, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/10-1.R")))
 toc()
@@ -292,7 +290,7 @@ toc()
 ```{r, code=readLines("2015/10-2.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day10part2, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/10-2.R")))
 toc()
@@ -309,7 +307,7 @@ toc()
 ```{r, code=readLines("2015/11-1.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day11part1, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/11-1.R"))) 
 toc()
@@ -320,7 +318,7 @@ toc()
 ```{r, code=readLines("2015/11-2.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day11part2, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/11-2.R"))) 
 toc()
@@ -337,7 +335,7 @@ toc()
 ```{r, code=readLines("2015/12-1.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day12part1, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/12-1.R"))) 
 toc()
@@ -348,7 +346,7 @@ toc()
 ```{r, code=readLines("2015/12-2.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day12part2, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/12-2.R"))) 
 toc()
@@ -365,7 +363,7 @@ toc()
 ```{r, code=readLines("2015/13-1.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day13part1, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/13-1.R"))) 
 toc()
@@ -376,7 +374,7 @@ toc()
 ```{r, code=readLines("2015/13-2.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day13part2, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/13-2.R"))) 
 toc()
@@ -393,7 +391,7 @@ toc()
 ```{r, code=readLines("2015/14-1.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day14part1, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/14-1.R"))) 
 toc()
@@ -404,7 +402,7 @@ toc()
 ```{r, code=readLines("2015/14-2.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day14part2, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/14-2.R"))) 
 toc()
@@ -421,7 +419,7 @@ toc()
 ```{r, code=readLines("2015/15-1.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day15part1, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/15-1.R"))) 
 toc()
@@ -432,7 +430,7 @@ toc()
 ```{r, code=readLines("2015/15-2.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day15part2, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/15-2.R"))) 
 toc()
@@ -449,7 +447,7 @@ toc()
 ```{r, code=readLines("2015/16-1.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day16part1, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/16-1.R"))) 
 toc()
@@ -460,7 +458,7 @@ toc()
 ```{r, code=readLines("2015/16-2.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day16part2, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/16-2.R"))) 
 toc()
@@ -477,7 +475,7 @@ toc()
 ```{r, code=readLines("2015/17-1.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day17part1, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/17-1.R"))) 
 toc()
@@ -488,7 +486,7 @@ toc()
 ```{r, code=readLines("2015/17-2.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day17part2, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/17-2.R"))) 
 toc()
@@ -505,7 +503,7 @@ toc()
 ```{r, code=readLines("2015/18-1.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day18part1, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/18-1.R"))) 
 toc()
@@ -516,7 +514,7 @@ toc()
 ```{r, code=readLines("2015/18-2.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day18part2, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/18-2.R"))) 
 toc()
@@ -533,7 +531,7 @@ toc()
 ```{r, code=readLines("2015/19-1.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day19part1, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/19-1.R"))) 
 toc()
@@ -544,7 +542,7 @@ toc()
 ```{r, code=readLines("2015/19-2.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day19part2, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/19-2.R"))) 
 toc()
@@ -561,7 +559,7 @@ toc()
 ```{r, code=readLines("2015/20-1.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day20part1, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/20-1.R"))) 
 toc()
@@ -572,7 +570,7 @@ toc()
 ```{r, code=readLines("2015/20-2.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day20part2, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/20-2.R"))) 
 toc()
@@ -589,7 +587,7 @@ toc()
 ```{r, code=readLines("2015/21-1.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day21part1, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/21-1.R"))) 
 toc()
@@ -600,7 +598,7 @@ toc()
 ```{r, code=readLines("2015/21-2.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day21part2, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/21-2.R"))) 
 toc()
@@ -623,7 +621,7 @@ toc()
 ```{r, code=readLines("2015/23-1.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day23part1, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/23-1.R"))) 
 toc()
@@ -634,7 +632,7 @@ toc()
 ```{r, code=readLines("2015/23-2.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day23part2, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/23-2.R"))) 
 toc()
@@ -651,7 +649,7 @@ toc()
 ```{r, code=readLines("2015/24-1.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day24part1, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/24-1.R"))) 
 toc()
@@ -662,7 +660,7 @@ toc()
 ```{r, code=readLines("2015/24-2.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day24part2, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/24-2.R"))) 
 toc()
@@ -679,7 +677,7 @@ toc()
 ```{r, code=readLines("2015/25-1.R"), eval=FALSE}
 ```
 
-```{r, echo=FALSE, cache=TRUE}
+```{r day25part1, echo=FALSE, cache=TRUE}
 tic()
 eval(parse(text = readLines("2015/25-1.R"))) 
 toc()
