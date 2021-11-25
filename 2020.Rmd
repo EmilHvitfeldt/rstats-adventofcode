@@ -1,0 +1,692 @@
+---
+title: "My 2020 Solutions"
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(tictoc)
+knitr::opts_chunk$set()
+xaringanExtra::use_panelset()
+```
+
+```{css, echo=FALSE}
+.panel-tab {
+  flex: 1 0 20%;
+  text-align: center;
+}
+```
+
+::::: {.panelset}
+
+::: {.panel}
+
+# Day 1 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2020/01-1.R"), eval=FALSE}
+```
+
+```{r day01part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/01-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2020/01-2.R"), eval=FALSE}
+```
+
+```{r day01part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/01-2.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 2 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2020/02-1.R"), eval=FALSE}
+```
+
+```{r day02part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/02-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2020/02-2.R"), eval=FALSE}
+```
+
+```{r day02part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/02-2.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 3 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2020/03-1.R"), eval=FALSE}
+```
+
+```{r day03part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/03-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2020/03-2.R"), eval=FALSE}
+```
+
+```{r day03part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/03-2.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 4 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2020/04-1.R"), eval=FALSE}
+```
+
+```{r day04part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/04-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2020/04-2.R"), eval=FALSE}
+```
+
+```{r day04part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/04-2.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 5 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2020/05-1.R"), eval=FALSE}
+```
+
+```{r day05part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/05-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2020/05-2.R"), eval=FALSE}
+```
+
+```{r day05part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/05-2.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 6 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2020/06-1.R"), eval=FALSE}
+```
+
+```{r day06part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/06-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2020/06-2.R"), eval=FALSE}
+```
+
+```{r day06part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/06-2.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 7 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2020/07-1.R"), eval=FALSE}
+```
+
+```{r day07part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/07-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2020/07-2.R"), eval=FALSE}
+```
+
+```{r day07part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/07-2.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 8 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2020/08-1.R"), eval=FALSE}
+```
+
+```{r day08part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/08-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2020/08-2.R"), eval=FALSE}
+```
+
+```{r day08part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/08-2.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 9 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2020/09-1.R"), eval=FALSE}
+```
+
+```{r day09part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/09-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2020/09-2.R"), eval=FALSE}
+```
+
+```{r day09part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/09-2.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 10 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2020/10-1.R"), eval=FALSE}
+```
+
+```{r day10part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/10-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2020/10-2.R"), eval=FALSE}
+```
+
+```{r day10part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/10-2.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 11 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2020/11-1.R"), eval=FALSE}
+```
+
+```{r day11part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/11-1.R"))) 
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2020/11-2.R"), eval=FALSE}
+```
+
+```{r day11part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/11-2.R"))) 
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 12 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2020/12-1.R"), eval=FALSE}
+```
+
+```{r day12part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/12-1.R"))) 
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2020/12-2.R"), eval=FALSE}
+```
+
+```{r day12part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/12-2.R"))) 
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 13 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2020/13-1.R"), eval=FALSE}
+```
+
+```{r day13part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/13-1.R"))) 
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2020/13-2.R"), eval=FALSE}
+```
+
+```{r day13part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/13-2.R"))) 
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 14 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2020/14-1.R"), eval=FALSE}
+```
+
+```{r day14part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/14-1.R"))) 
+toc()
+```
+
+## Part 2
+
+:::
+
+::: {.panel}
+
+# Day 15 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2020/15-1.R"), eval=FALSE}
+```
+
+```{r day15part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/15-1.R"))) 
+toc()
+```
+
+## Part 2
+
+:::
+
+::: {.panel}
+
+# Day 16 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2020/16-1.R"), eval=FALSE}
+```
+
+```{r day16part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/16-1.R"))) 
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2020/16-2.R"), eval=FALSE}
+```
+
+```{r day16part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/16-2.R"))) 
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 17 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2020/17-1.R"), eval=FALSE}
+```
+
+```{r day17part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/17-1.R"))) 
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2020/17-2.R"), eval=FALSE}
+```
+
+```{r day17part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/17-2.R"))) 
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 18 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2020/18-1.R"), eval=FALSE}
+```
+
+```{r day18part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/18-1.R"))) 
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2020/18-2.R"), eval=FALSE}
+```
+
+```{r day18part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/18-2.R"))) 
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 19 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2020/19-1.R"), eval=FALSE}
+```
+
+```{r day19part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/19-1.R"))) 
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2020/19-2.R"), eval=FALSE}
+```
+
+```{r day19part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/19-2.R"))) 
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 20 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2020/20-1.R"), eval=FALSE}
+```
+
+```{r day20part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/20-1.R"))) 
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2020/20-2.R"), eval=FALSE}
+```
+
+```{r day20part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/20-2.R"))) 
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 21 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2020/21-1.R"), eval=FALSE}
+```
+
+```{r day21part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/21-1.R"))) 
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2020/21-2.R"), eval=FALSE}
+```
+
+```{r day21part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/21-2.R"))) 
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 22 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2020/22-1.R"), eval=FALSE}
+```
+
+```{r day22part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/22-1.R"))) 
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2020/22-2.R"), eval=FALSE}
+```
+
+```{r day22part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/22-2.R"))) 
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 23 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2020/23-1.R"), eval=FALSE}
+```
+
+```{r day23part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/23-1.R"))) 
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2020/23-2.R"), eval=FALSE}
+```
+
+```{r day23part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/23-2.R"))) 
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 24 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2020/24-1.R"), eval=FALSE}
+```
+
+```{r day24part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/24-1.R"))) 
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2020/24-2.R"), eval=FALSE}
+```
+
+```{r day24part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/24-2.R"))) 
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 25 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2020/25-1.R"), eval=FALSE}
+```
+
+```{r day25part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2020/25-1.R"))) 
+toc()
+```
+
+:::
+
+:::::
