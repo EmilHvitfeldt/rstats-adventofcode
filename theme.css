@@ -96,6 +96,10 @@ code {
  color: #cccccc !important;
 }
 
+.panelset .panel-tabs .panel-tab:hover {
+  color: #00cc00 !important;
+}
+
 .distill-site-header a {
     color: #00cc00;
     text-shadow: 0 0 2px #00cc00, 0 0 5px #00cc00;

@@ -2209,6 +2209,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
    color: #cccccc !important;
   }
 
+  .panelset .panel-tabs .panel-tab:hover {
+    color: #00cc00 !important;
+  }
+
   .distill-site-header a {
       color: #00cc00;
       text-shadow: 0 0 2px #00cc00, 0 0 5px #00cc00;
@@ -2438,6 +2442,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="nav-left">
 <a href="index.html" class="title">R Advent Of Code</a>
 <a href="2015.html">2015</a>
+<a href="2016.html">2016</a>
+<a href="2017.html">2017</a>
+<a href="2018.html">2018</a>
+<a href="2019.html">2019</a>
 <a href="2020.html">2020</a>
 </div>
 <div class="nav-right">
@@ -2465,6 +2473,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   text-align: center;
 }
 </style>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<style>#panelset_day-14 {color: #EBB626 !important;}
+#panelset_day-15 {color: #EBB626 !important;}
+#panelset_day-25 {color: #EBB626 !important;}</style>
 </div>
 <div class="panelset">
 <section id="day-1" class="panel-name panel">
@@ -3047,7 +3060,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span class='va'>i</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
 
 <span class='kw'>repeat</span> <span class='op'>{</span>
-  <span class='va'>sums</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>colSums</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/combn.html'>combn</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='va'>i</span>, <span class='va'>i</span> <span class='op'>+</span> <span class='fl'>24</span><span class='op'>)</span><span class='op'>]</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>sums</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>colSums</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/combinat/man/combn.html'>combn</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='va'>i</span>, <span class='va'>i</span> <span class='op'>+</span> <span class='fl'>24</span><span class='op'>)</span><span class='op'>]</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
   <span class='kw'>if</span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/any.html'>any</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>[</span><span class='va'>i</span> <span class='op'>+</span> <span class='fl'>25</span><span class='op'>]</span> <span class='op'>==</span> <span class='va'>sums</span><span class='op'>)</span><span class='op'>)</span> <span class='kw'>break</span>
   <span class='va'>i</span> <span class='op'>&lt;-</span> <span class='va'>i</span> <span class='op'>+</span> <span class='fl'>1</span>
 <span class='op'>}</span>
@@ -3068,7 +3081,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span class='va'>i</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
 
 <span class='kw'>repeat</span> <span class='op'>{</span>
-  <span class='va'>sums</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>colSums</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/combn.html'>combn</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='va'>i</span>, <span class='va'>i</span> <span class='op'>+</span> <span class='fl'>24</span><span class='op'>)</span><span class='op'>]</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>sums</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>colSums</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/combinat/man/combn.html'>combn</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='va'>i</span>, <span class='va'>i</span> <span class='op'>+</span> <span class='fl'>24</span><span class='op'>)</span><span class='op'>]</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
   <span class='kw'>if</span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/any.html'>any</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>[</span><span class='va'>i</span> <span class='op'>+</span> <span class='fl'>25</span><span class='op'>]</span> <span class='op'>==</span> <span class='va'>sums</span><span class='op'>)</span><span class='op'>)</span> <span class='kw'>break</span>
   <span class='va'>i</span> <span class='op'>&lt;-</span> <span class='va'>i</span> <span class='op'>+</span> <span class='fl'>1</span>
 <span class='op'>}</span>

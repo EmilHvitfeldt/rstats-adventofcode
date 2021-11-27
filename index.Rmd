@@ -20,3 +20,47 @@ This website is created using the [emilhvitfeldt/rstats-adventofcode](https://gi
 
 I don't have any rules I follow. I will end up doing most solutions using base R because of the nanture of the problems. I will be using both `purrr` and `stringr` when the need comes up, I don't hate myself. I'm here to write code and have fun doing it.
 
+# Completion
+
+```{css}
+tbody {
+  color: #ffff66;
+}
+
+thead {
+  color: #cccccc;
+}
+```
+
+```{r}
+library(tidyverse)
+
+get_solutions <- function(year) {
+  res <- glue::glue("{year}/") |>
+  fs::dir_ls() |>
+  stringr::str_subset("input", negate = TRUE) |>
+  basename() |>
+  stringr::str_sub(1, 2) |>
+  as.numeric() |>
+  factor(levels = 1:25)
+  
+  tibble(Day = res, year = year)
+}
+
+years <- 2015:2021
+
+years %>%
+  map_dfr(get_solutions) %>%
+  mutate(year = factor(year, years)) %>%
+  count(year, Day, .drop = FALSE) %>%
+  group_by(year) %>%
+  mutate(n = case_when(
+    Day != 25 ~ n,
+    sum(n) == 49 ~ 2L,
+    TRUE ~ n
+  )) %>%
+  mutate( n = strrep("*", n)) %>%
+  pivot_wider(names_from = year, values_from = n) %>%
+  knitr::kable()
+```
+

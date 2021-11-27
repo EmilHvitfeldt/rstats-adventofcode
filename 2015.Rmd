@@ -16,6 +16,36 @@ xaringanExtra::use_panelset()
 }
 ```
 
+```{r, echo=FALSE}
+part1 <- fs::dir_ls("2015/") |>
+  stringr::str_subset("-1") |>
+  stringr::str_sub(6, 7) |>
+  as.numeric()
+
+part2 <- fs::dir_ls("2015/") |>
+  stringr::str_subset("-2") |>
+  stringr::str_sub(6, 7) |>
+  as.numeric()
+
+one_done <- setdiff(setdiff(1:25, part2), setdiff(1:25, part1))
+none_done <- intersect(setdiff(1:25, part2), setdiff(1:25, part1))
+
+htmltools::tags$style(
+  paste0(collapse = "\n",
+    c(
+      glue::glue(
+        "#panelset_day-[one_done] {color: #EBB626 !important;}",
+        .open = "[", .close = "]"
+      ),
+      glue::glue(
+        "#panelset_day-[none_done] {color: #D63131 !important;}",
+        .open = "[", .close = "]"
+      )
+    )
+  )
+)
+```
+
 ::::: {.panelset}
 
 ::: {.panel}

@@ -1,0 +1,344 @@
+---
+title: "My 2018 Solutions"
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(tictoc)
+knitr::opts_chunk$set()
+xaringanExtra::use_panelset()
+```
+
+```{css, echo=FALSE}
+.panel-tab {
+  flex: 1 0 20%;
+  text-align: center;
+}
+```
+
+```{r, echo=FALSE}
+part1 <- fs::dir_ls("2018/") |>
+  stringr::str_subset("-1") |>
+  stringr::str_sub(6, 7) |>
+  as.numeric()
+
+part2 <- fs::dir_ls("2018/") |>
+  stringr::str_subset("-2") |>
+  stringr::str_sub(6, 7) |>
+  as.numeric()
+
+one_done <- setdiff(setdiff(1:25, part2), setdiff(1:25, part1))
+none_done <- intersect(setdiff(1:25, part2), setdiff(1:25, part1))
+
+htmltools::tags$style(
+  paste0(collapse = "\n",
+    c(
+      glue::glue(
+        "#panelset_day-[one_done] {color: #EBB626 !important;}",
+        .open = "[", .close = "]"
+      ),
+      glue::glue(
+        "#panelset_day-[none_done] {color: #D63131 !important;}",
+        .open = "[", .close = "]"
+      )
+    )
+  )
+)
+```
+
+::::: {.panelset}
+
+::: {.panel}
+
+# Day 1 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2018/01-1.R"), eval=FALSE}
+```
+
+```{r day01part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2018/01-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2018/01-2.R"), eval=FALSE}
+```
+
+```{r day01part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2018/01-2.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 2 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2018/02-1.R"), eval=FALSE}
+```
+
+```{r day02part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2018/02-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2018/02-2.R"), eval=FALSE}
+```
+
+```{r day02part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2018/02-2.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 3 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2018/03-1.R"), eval=FALSE}
+```
+
+```{r day03part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2018/03-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2018/03-2.R"), eval=FALSE}
+```
+
+```{r day03part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2018/03-2.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 4 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2018/04-1.R"), eval=FALSE}
+```
+
+```{r day04part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2018/04-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2018/04-2.R"), eval=FALSE}
+```
+
+```{r day04part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2018/04-2.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 5 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2018/05-1.R"), eval=FALSE}
+```
+
+```{r day05part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2018/05-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2018/05-2.R"), eval=FALSE}
+```
+
+```{r day05part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2018/05-2.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 6 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2018/06-1.R"), eval=FALSE}
+```
+
+```{r day06part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2018/06-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2018/06-2.R"), eval=FALSE}
+```
+
+```{r day06part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2018/06-2.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 7 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2018/07-1.R"), eval=FALSE}
+```
+
+```{r day07part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2018/07-1.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 8 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 9 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 10 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 11 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 12 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 13 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 14 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 15 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 16 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 17 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 18 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 19 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 20 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 21 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 22 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 23 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 24 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 25 {.panel-name}
+
+:::
+
+:::::

@@ -1,0 +1,14 @@
+base
+knitr
+tictoc
+stringr
+magrittr
+purrr
+ggplot2
+combinat
+tidyverse
+tibble
+tidyr
+readr
+dplyr
+forcats
