@@ -2507,8 +2507,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h2 id="part-1">Part 1</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='st'>"2021/01-input"</span><span class='op'>)</span> |&gt;
-  <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/scan.html'>scan</a></span><span class='op'>(</span><span class='st'>"2021/01-input"</span><span class='op'>)</span>
 
 <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/diff.html'>diff</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>)</span> <span class='op'>&gt;</span> <span class='fl'>0</span><span class='op'>)</span>
 </code></pre>
@@ -2521,12 +2520,17 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h2 id="part-2">Part 2</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='st'>"2021/01-input"</span><span class='op'>)</span> |&gt;
-  <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/scan.html'>scan</a></span><span class='op'>(</span><span class='st'>"2021/01-input"</span><span class='op'>)</span>
 
 <span class='va'>sum3</span> <span class='op'>&lt;-</span> <span class='fu'>slider</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/slider/man/slide.html'>slide_dbl</a></span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>mean</span>, .before <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 
 <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/diff.html'>diff</a></span><span class='op'>(</span><span class='va'>sum3</span><span class='op'>)</span> <span class='op'>&gt;</span> <span class='fl'>0</span><span class='op'>)</span>
+
+<span class='co'># Simpler solution thanks to https://twitter.com/trang1618</span>
+<span class='co'># This works because `lag` happens to use the same direction</span>
+<span class='co'># as `.before`</span>
+<span class='co'>#</span>
+<span class='co'># sum(diff(input, lag = 3) &gt; 0)</span>
 </code></pre>
 </div>
 </div>
