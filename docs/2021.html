@@ -2476,8 +2476,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<style>#panelset_day-2 {color: #D63131 !important;}
-#panelset_day-3 {color: #D63131 !important;}
+<style>#panelset_day-3 {color: #D63131 !important;}
 #panelset_day-4 {color: #D63131 !important;}
 #panelset_day-5 {color: #D63131 !important;}
 #panelset_day-6 {color: #D63131 !important;}
@@ -2541,6 +2540,68 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </section>
 <section id="day-2" class="panel-name panel">
 <h1 class="panel-name">Day 2</h1>
+<h2 id="part-1-1">Part 1</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.delim</a></span><span class='op'>(</span><span class='st'>"2021/02-input"</span>, sep <span class='op'>=</span> <span class='st'>" "</span>, header <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+
+<span class='va'>horizontal</span> <span class='op'>&lt;-</span> <span class='fl'>0</span>
+<span class='va'>depth</span> <span class='op'>&lt;-</span> <span class='fl'>0</span>
+
+<span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>command</span> <span class='op'>&lt;-</span> <span class='va'>input</span><span class='op'>[</span><span class='va'>i</span>, <span class='fl'>1</span><span class='op'>]</span>
+  <span class='va'>value</span> <span class='op'>&lt;-</span> <span class='va'>input</span><span class='op'>[</span><span class='va'>i</span>, <span class='fl'>2</span><span class='op'>]</span>
+  <span class='kw'>if</span> <span class='op'>(</span><span class='va'>command</span> <span class='op'>==</span> <span class='st'>"forward"</span><span class='op'>)</span> <span class='op'>{</span>
+    <span class='va'>horizontal</span> <span class='op'>&lt;-</span> <span class='va'>horizontal</span> <span class='op'>+</span> <span class='va'>value</span>
+  <span class='op'>}</span>
+  <span class='kw'>if</span> <span class='op'>(</span><span class='va'>command</span> <span class='op'>==</span> <span class='st'>"up"</span><span class='op'>)</span> <span class='op'>{</span>
+    <span class='va'>depth</span> <span class='op'>&lt;-</span> <span class='va'>depth</span> <span class='op'>-</span> <span class='va'>value</span>
+  <span class='op'>}</span>
+  <span class='kw'>if</span> <span class='op'>(</span><span class='va'>command</span> <span class='op'>==</span> <span class='st'>"down"</span><span class='op'>)</span> <span class='op'>{</span>
+    <span class='va'>depth</span> <span class='op'>&lt;-</span> <span class='va'>depth</span> <span class='op'>+</span> <span class='va'>value</span>
+  <span class='op'>}</span>
+<span class='op'>}</span>
+
+<span class='va'>depth</span> <span class='op'>*</span> <span class='va'>horizontal</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code>[1] 1938402</code></pre>
+<pre><code>0.048 sec elapsed</code></pre>
+</div>
+<h2 id="part-2-1">Part 2</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.delim</a></span><span class='op'>(</span><span class='st'>"2021/02-input"</span>, sep <span class='op'>=</span> <span class='st'>" "</span>, header <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+
+<span class='va'>horizontal</span> <span class='op'>&lt;-</span> <span class='fl'>0</span>
+<span class='va'>depth</span> <span class='op'>&lt;-</span> <span class='fl'>0</span>
+<span class='va'>aim</span> <span class='op'>&lt;-</span> <span class='fl'>0</span>
+
+<span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>command</span> <span class='op'>&lt;-</span> <span class='va'>input</span><span class='op'>[</span><span class='va'>i</span>, <span class='fl'>1</span><span class='op'>]</span>
+  <span class='va'>value</span> <span class='op'>&lt;-</span> <span class='va'>input</span><span class='op'>[</span><span class='va'>i</span>, <span class='fl'>2</span><span class='op'>]</span>
+  <span class='kw'>if</span> <span class='op'>(</span><span class='va'>command</span> <span class='op'>==</span> <span class='st'>"forward"</span><span class='op'>)</span> <span class='op'>{</span>
+    <span class='va'>horizontal</span> <span class='op'>&lt;-</span> <span class='va'>horizontal</span> <span class='op'>+</span> <span class='va'>value</span>
+    <span class='va'>depth</span> <span class='op'>&lt;-</span> <span class='va'>depth</span> <span class='op'>+</span> <span class='va'>aim</span> <span class='op'>*</span> <span class='va'>value</span>
+  <span class='op'>}</span>
+  <span class='kw'>if</span> <span class='op'>(</span><span class='va'>command</span> <span class='op'>==</span> <span class='st'>"up"</span><span class='op'>)</span> <span class='op'>{</span>
+    <span class='va'>aim</span> <span class='op'>&lt;-</span> <span class='va'>aim</span> <span class='op'>-</span> <span class='va'>value</span>
+  <span class='op'>}</span>
+  <span class='kw'>if</span> <span class='op'>(</span><span class='va'>command</span> <span class='op'>==</span> <span class='st'>"down"</span><span class='op'>)</span> <span class='op'>{</span>
+    <span class='va'>aim</span> <span class='op'>&lt;-</span> <span class='va'>aim</span> <span class='op'>+</span> <span class='va'>value</span>
+  <span class='op'>}</span>
+<span class='op'>}</span>
+
+<span class='va'>depth</span> <span class='op'>*</span> <span class='va'>horizontal</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code>[1] 1947878632</code></pre>
+<pre><code>0.066 sec elapsed</code></pre>
+</div>
 </section>
 <section id="day-3" class="panel-name panel">
 <h1 class="panel-name">Day 3</h1>
@@ -2612,7 +2673,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h1 class="panel-name">Day 25</h1>
 </section>
 </div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
