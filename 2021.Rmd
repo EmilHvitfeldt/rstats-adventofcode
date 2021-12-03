@@ -108,6 +108,28 @@ toc()
 
 # Day 3 {.panel-name}
 
+## Part 1
+
+```{r, code=readLines("2021/03-1.R"), eval=FALSE}
+```
+
+```{r day03part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2021/03-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2021/03-2.R"), eval=FALSE}
+```
+
+```{r day03part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2021/03-2.R")))
+toc()
+```
+
 :::
 
 ::: {.panel}
