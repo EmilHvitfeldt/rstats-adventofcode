@@ -2611,19 +2611,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <span class='fu'><a href='https://rdrr.io/r/base/strsplit.html'>strsplit</a></span><span class='op'>(</span><span class='st'>""</span><span class='op'>)</span> |&gt;
   <span class='fu'>purrr</span><span class='fu'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/reduce.html'>reduce</a></span><span class='op'>(</span><span class='va'>rbind</span><span class='op'>)</span>
 
-<span class='va'>common_finder</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>fun</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='fu'>fun</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>common_finder</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>fun</span>, <span class='va'>even</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+  <span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>tab</span><span class='op'>)</span> <span class='op'>==</span> <span class='fl'>2</span> <span class='op'>&amp;</span> <span class='va'>tab</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>==</span> <span class='va'>tab</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span> <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>even</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='fu'>fun</span><span class='op'>(</span><span class='va'>tab</span><span class='op'>)</span> <span class='op'>==</span> <span class='va'>tab</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>}</span>
 
-<span class='va'>rate_calculator</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>mat</span>, <span class='va'>fun</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>mat</span>, MARGIN <span class='op'>=</span> <span class='fl'>2</span>, FUN <span class='op'>=</span> <span class='va'>common_finder</span>, <span class='va'>fun</span><span class='op'>)</span> |&gt;
+<span class='va'>rate_calculator</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>mat</span>, <span class='va'>fun</span>, <span class='va'>even</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>mat</span>, MARGIN <span class='op'>=</span> <span class='fl'>2</span>, FUN <span class='op'>=</span> <span class='va'>common_finder</span>, <span class='va'>fun</span>, <span class='va'>even</span><span class='op'>)</span> |&gt;
     <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span>collapse <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span> |&gt;
     <span class='fu'><a href='https://rdrr.io/r/base/strtoi.html'>strtoi</a></span><span class='op'>(</span>base <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 <span class='op'>}</span>
 
-<span class='va'>gamma</span> <span class='op'>&lt;-</span> <span class='fu'>rate_calculator</span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>max</span><span class='op'>)</span>
+<span class='va'>gamma</span> <span class='op'>&lt;-</span> <span class='fu'>rate_calculator</span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>max</span>, <span class='st'>"1"</span><span class='op'>)</span>
 
-<span class='va'>epsilon</span> <span class='op'>&lt;-</span> <span class='fu'>rate_calculator</span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>min</span><span class='op'>)</span>
+<span class='va'>epsilon</span> <span class='op'>&lt;-</span> <span class='fu'>rate_calculator</span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>min</span> , <span class='st'>"0"</span><span class='op'>)</span>
 
 <span class='va'>gamma</span> <span class='op'>*</span> <span class='va'>epsilon</span>
 </code></pre>
@@ -2631,7 +2633,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <pre><code>[1] 3429254</code></pre>
-<pre><code>0.083 sec elapsed</code></pre>
+<pre><code>0.091 sec elapsed</code></pre>
 </div>
 <h2 id="part-2-2">Part 2</h2>
 <div class="layout-chunk" data-layout="l-body">
