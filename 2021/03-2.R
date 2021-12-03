@@ -27,6 +27,6 @@ rate_calculator <- function(mat, fun, even) {
 }
 
 oxygen <- rate_calculator(input, max, "1")
-co2 <- rate_calculator(mat = input, fun = min, even = "0")
+co2 <- rate_calculator(input, min, "0")
 
 oxygen * co2
