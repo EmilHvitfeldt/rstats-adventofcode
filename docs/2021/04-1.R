@@ -24,7 +24,7 @@ check_board <- function(board) {
     matched <- matrix(board %in% numbers[seq_len(i)], nrow = 5)
 
     row_checks <- apply(matched, MARGIN = 1, prod)
-    col_checks <- apply(matched, MARGIN = 1, prod)
+    col_checks <- apply(matched, MARGIN = 2, prod)
     if (any(c(row_checks, col_checks) == 1)) break
   }
   i

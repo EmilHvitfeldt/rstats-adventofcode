@@ -136,6 +136,8 @@ toc()
 
 # Day 4 {.panel-name}
 
+The only difference between part 1 and 2 is that part 1 uses `min(win_times)` and part 2 uses `max(win_times)`
+
 ## Part 1
 
 ```{r, code=readLines("2021/04-1.R"), eval=FALSE}
