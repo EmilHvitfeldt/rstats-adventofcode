@@ -196,6 +196,28 @@ toc()
 
 # Day 6 {.panel-name}
 
+## Part 1
+
+```{r, code=readLines("2021/06-1.R"), eval=FALSE}
+```
+
+```{r day06part1, echo=FALSE, cache=TRUE}
+tic()
+tmp <- eval(parse(text = readLines("2021/06-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2021/06-2.R"), eval=FALSE}
+```
+
+```{r day06part2, echo=FALSE, cache=TRUE}
+tic()
+tmp <- eval(parse(text = readLines("2021/06-2.R")))
+toc()
+```
+
 :::
 
 ::: {.panel}
