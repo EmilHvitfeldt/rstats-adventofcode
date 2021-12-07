@@ -6,7 +6,7 @@ for (i in seq_len(256)) {
   n0 <- counts[1]
   counts[-length(counts)] <- counts[-1]
   counts[7] <- counts[7] + n0
-  counts[9] <- counts[9] + n0
+  counts[9] <- n0
 }
 
 options(scipen = 999)
