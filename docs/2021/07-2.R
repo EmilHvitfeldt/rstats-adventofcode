@@ -6,3 +6,6 @@ adjust <- function(n) n * (n + 1) / 2
 
 fuels <- purrr::map_dbl(values, ~sum(adjust(abs(input - .x))))
 min(fuels)
+
+# Trick from https://twitter.com/skyetetra
+sum(adjust(abs(floor(mean(input)) - input)))
