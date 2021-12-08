@@ -8,4 +8,7 @@ fuels <- purrr::map_dbl(values, ~sum(adjust(abs(input - .x))))
 min(fuels)
 
 # Trick from https://twitter.com/skyetetra
-sum(adjust(abs(floor(mean(input)) - input)))
+min(
+  sum(adjust(abs(floor(mean(input)) - input))),
+  sum(adjust(abs(ceiling(mean(input)) - input)))
+)
