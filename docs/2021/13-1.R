@@ -4,23 +4,23 @@ input <- readLines("2021/13-input")
 
 mid <- which(input == "")
 
-points <- input[seq_len(mid - 1)]
-folds <- input[seq(mid + 1, length(input))]
-
 p1 <- function(x) x + 1L
 
-pointss <- str_split(points, ",") %>%
+folds <- input[seq(mid + 1, length(input))]
+points <- input[seq_len(mid - 1)] %>%
+  str_split(",") %>%
   map(as.integer) %>%
   map(p1)
 
+
 mat <- matrix(
   FALSE,
-  nrow = pointss %>% map_int(~.x[2]) %>% max(),
-  ncol = pointss %>% map_int(~.x[1]) %>% max()
+  nrow = points %>% map_int(~.x[2]) %>% max(),
+  ncol = points %>% map_int(~.x[1]) %>% max()
 )
 
-for (p in pointss) {
-  mat[p[[2]], p[[1]]] <- TRUE
+for (point in points) {
+  mat[point[[2]], point[[1]]] <- TRUE
 }
 
 fold <- folds[1]
