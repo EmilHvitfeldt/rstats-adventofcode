@@ -384,12 +384,32 @@ tmp <- eval(parse(text = readLines("2021/12-2.R")))
 toc()
 ```
 
-
 :::
 
 ::: {.panel}
 
 # Day 13 {.panel-name}
+
+```{r, code=readLines("2021/13-1.R"), eval=FALSE}
+```
+
+```{r day13part1, echo=FALSE, cache=TRUE}
+tic()
+tmp <- eval(parse(text = readLines("2021/13-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2021/13-2.R"), eval=FALSE}
+```
+
+```{r day13part2, echo=FALSE, cache=TRUE}
+tic()
+tmp <- eval(parse(text = readLines("2021/13-2.R")))
+toc()
+```
+
 
 :::
 
