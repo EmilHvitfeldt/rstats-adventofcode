@@ -31,21 +31,15 @@ amount <- str_extract(fold, "[0-9]+") %>% as.integer() %>% p1()
 if (axis == "y") {
   folded <- seq(nrow(mat), amount + 1)
   landed <- seq(amount - length(folded), amount - 1)
-  if (min(landed) == 1) {
-    mat <- mat[landed, ] | mat[folded, ]
-  } else {
-    leftover_mat <- mat[seq_len(min(landed) - 1), ]
-    mat <- rbind(leftover_mat, mat[landed, ] | mat[folded, ])
-  }
+
+  mat[landed, ] <- mat[landed, ] | mat[folded, ]
+  mat <- mat[seq_len(amount - 1), ]
 } else {
   folded <- seq(ncol(mat), amount + 1)
   landed <- seq(amount - length(folded), amount - 1)
-  if (min(landed) == 1) {
-    mat <- mat[, landed] | mat[, folded]
-  } else {
-    leftover_mat <- mat[, seq_len(min(landed) - 1)]
-    mat <- rbind(leftover_mat, mat[, landed] | mat[, folded])
-  }
+
+  mat[, landed] <- mat[, landed] | mat[, folded]
+  mat <- mat[, seq_len(amount - 1)]
 }
 
 sum(mat)
