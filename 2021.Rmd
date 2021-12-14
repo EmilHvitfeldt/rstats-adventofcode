@@ -410,12 +410,33 @@ tmp <- eval(parse(text = readLines("2021/13-2.R")))
 toc()
 ```
 
-
 :::
 
 ::: {.panel}
 
 # Day 14 {.panel-name}
+
+The only difference here between part 1 and part 2 is setting the step range from 10 to 40
+
+```{r, code=readLines("2021/14-1.R"), eval=FALSE}
+```
+
+```{r day14part1, echo=FALSE, cache=TRUE}
+tic()
+tmp <- eval(parse(text = readLines("2021/14-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2021/14-2.R"), eval=FALSE}
+```
+
+```{r day14part2, echo=FALSE, cache=TRUE}
+tic()
+tmp <- eval(parse(text = readLines("2021/14-2.R")))
+toc()
+```
 
 :::
 
