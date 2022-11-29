@@ -50,16 +50,17 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  { color: #00769e; background-color: #f1f3f5; }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span { color: #00769e; } /* Normal */
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { } /* Attribute */
+code span.at { color: #657422; } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
-code span.cf { color: #007ba5; } /* ControlFlow */
+code span.cf { color: #00769e; } /* ControlFlow */
 code span.ch { color: #20794d; } /* Char */
 code span.cn { color: #8f5902; } /* Constant */
 code span.co { color: #5e5e5e; } /* Comment */
@@ -73,9 +74,9 @@ code span.fl { color: #ad0000; } /* Float */
 code span.fu { color: #4758ab; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #5e5e5e; } /* Information */
-code span.kw { color: #007ba5; } /* Keyword */
+code span.kw { color: #00769e; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
-code span.ot { color: #007ba5; } /* Other */
+code span.ot { color: #00769e; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
 code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
@@ -784,6 +785,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article table.gt_table td,
   d-article table.gt_table th {
     border-bottom: none;
+    font-size: 100%;
   }
 
   .html-widget {
@@ -1025,10 +1027,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     position: relative;
     margin-bottom: 2.5em;
     margin-top: 1.5em;
-  }
-
-  .figure img {
-    width: 100%;
   }
 
   .figure .caption {
@@ -1860,9 +1858,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
+          $(this).html(fn.shadowRoot.querySelector("sup"))
+          $(this).id = fn.id
+          fn.remove()
+        }
         var refs = $(this).attr('data-cites').split(" ");
         var refHtml = refs.map(function(ref) {
-          return "<p>" + $('#ref-' + ref).html() + "</p>";
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
         }).join("\n");
         window.tippy(this, {
           allowHTML: true,
@@ -1874,6 +1884,31 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
           placement: 'bottom-start'
         });
       });
+
+      // fix footnotes in tables (#411)
+      // replacing broken distill.pub feature
+      $('table d-footnote').each(function() {
+        // we replace internal showAtNode methode which is triggered when hovering a footnote
+        this.hoverBox.showAtNode = function(node) {
+          // ported from https://github.com/distillpub/template/pull/105/files
+          calcOffset = function(elem) {
+              let x = elem.offsetLeft;
+              let y = elem.offsetTop;
+              // Traverse upwards until an `absolute` element is found or `elem`
+              // becomes null.
+              while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                  x += elem.offsetLeft;
+                  y += elem.offsetTop;
+              }
+
+              return { left: x, top: y };
+          }
+          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+          const bbox = node.getBoundingClientRect();
+          const offset = calcOffset(node);
+          this.show([offset.left + bbox.width, offset.top + bbox.height]);
+        }
+      })
 
       // clear polling timer
       clearInterval(tid);
@@ -1973,6 +2008,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // mark non-body figures created by knitr chunks as 100% width
     $('.layout-chunk').each(function(i, val) {
       var figures = $(this).find('img, .html-widget');
+      // ignore leaflet img layers (#106)
+      figures = figures.filter(':not(img[class*="leaflet"])')
       if ($(this).attr('data-layout') !== "l-body") {
         figures.css('width', '100%');
       } else {
@@ -1995,7 +2032,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // get rid of index.html references in header
     if (window.location.protocol !== "file:") {
       $('.distill-site-header a[href]').each(function(i,val) {
-        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+        $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
       });
     }
 
@@ -2410,7 +2447,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
   <link href="site_libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
   <script src="site_libs/panelset-0.2.6/panelset.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
@@ -2504,12 +2541,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h2 id="part-1">Part 1</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='st'>"2017/01-input"</span><span class='op'>)</span>
-
-<span class='va'>chars</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/strsplit.html'>strsplit</a></span><span class='op'>(</span><span class='va'>input</span>, <span class='st'>""</span><span class='op'>)</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>chars</span><span class='op'>[</span><span class='va'>chars</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>chars</span><span class='op'>[</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>, <span class='va'>chars</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='st'>"2017/01-input"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>chars</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/strsplit.html'>strsplit</a></span><span class='op'>(</span><span class='va'>input</span>, <span class='st'>""</span><span class='op'>)</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>chars</span><span class='op'>[</span><span class='va'>chars</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>chars</span><span class='op'>[</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>, <span class='va'>chars</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <div class="layout-chunk" data-layout="l-body">
@@ -2519,14 +2555,13 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h2 id="part-2">Part 2</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='st'>"2017/01-input"</span><span class='op'>)</span>
-
-<span class='va'>chars</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/strsplit.html'>strsplit</a></span><span class='op'>(</span><span class='va'>input</span>, <span class='st'>""</span><span class='op'>)</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
-
-<span class='va'>len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>chars</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>2</span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>chars</span><span class='op'>[</span><span class='va'>chars</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>chars</span><span class='op'>[</span><span class='op'>-</span><span class='va'>len</span><span class='op'>]</span>, <span class='va'>chars</span><span class='op'>[</span><span class='va'>len</span><span class='op'>]</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='st'>"2017/01-input"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>chars</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/strsplit.html'>strsplit</a></span><span class='op'>(</span><span class='va'>input</span>, <span class='st'>""</span><span class='op'>)</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>chars</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>2</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>chars</span><span class='op'>[</span><span class='va'>chars</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>chars</span><span class='op'>[</span><span class='op'>-</span><span class='va'>len</span><span class='op'>]</span>, <span class='va'>chars</span><span class='op'>[</span><span class='va'>len</span><span class='op'>]</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <div class="layout-chunk" data-layout="l-body">
@@ -2539,10 +2574,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h2 id="part-1-1">Part 1</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'>readr</span><span class='fu'>::</span><span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_tsv</a></span><span class='op'>(</span><span class='st'>"2017/02-input"</span>, col_names <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>)</span>, <span class='fl'>1</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'>readr</span><span class='fu'>::</span><span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_tsv</a></span><span class='op'>(</span><span class='st'>"2017/02-input"</span>, col_names <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>)</span>, <span class='fl'>1</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <div class="layout-chunk" data-layout="l-body">
@@ -2552,18 +2586,17 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h2 id="part-2-1">Part 2</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'>readr</span><span class='fu'>::</span><span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_tsv</a></span><span class='op'>(</span><span class='st'>"2017/02-input"</span>, col_names <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='va'>evenly</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='va'>outers</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/outer.html'>outer</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>x</span>, <span class='st'>"/"</span><span class='op'>)</span>
-
-  <span class='va'>outers</span><span class='op'>[</span><span class='op'>(</span><span class='op'>(</span><span class='va'>outers</span> <span class='op'>%%</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>==</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>&amp;</span> <span class='op'>(</span><span class='va'>outers</span> <span class='op'>!=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>]</span>
-<span class='op'>}</span>
-
-<span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>)</span>, <span class='fl'>1</span>, <span class='va'>evenly</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'>readr</span><span class='fu'>::</span><span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_tsv</a></span><span class='op'>(</span><span class='st'>"2017/02-input"</span>, col_names <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>evenly</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>outers</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/outer.html'>outer</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>x</span>, <span class='st'>"/"</span><span class='op'>)</span></span>
+<span></span>
+<span>  <span class='va'>outers</span><span class='op'>[</span><span class='op'>(</span><span class='op'>(</span><span class='va'>outers</span> <span class='op'><a href='https://rdrr.io/r/base/Arithmetic.html'>%%</a></span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>==</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>&amp;</span> <span class='op'>(</span><span class='va'>outers</span> <span class='op'>!=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>]</span></span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>)</span>, <span class='fl'>1</span>, <span class='va'>evenly</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <div class="layout-chunk" data-layout="l-body">
@@ -2578,14 +2611,13 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h2 id="part-1-2">Part 1</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://purrr.tidyverse.org'>purrr</a></span><span class='op'>)</span>
-
-<span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='st'>"2017/04-input"</span><span class='op'>)</span>
-
-<span class='va'>passwords</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/strsplit.html'>strsplit</a></span><span class='op'>(</span><span class='va'>input</span>, <span class='st'>" "</span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_lgl</a></span><span class='op'>(</span><span class='va'>passwords</span>, <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://purrr.tidyverse.org/'>purrr</a></span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='st'>"2017/04-input"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>passwords</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/strsplit.html'>strsplit</a></span><span class='op'>(</span><span class='va'>input</span>, <span class='st'>" "</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_lgl</a></span><span class='op'>(</span><span class='va'>passwords</span>, <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <div class="layout-chunk" data-layout="l-body">
@@ -2595,18 +2627,17 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h2 id="part-2-2">Part 2</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://purrr.tidyverse.org'>purrr</a></span><span class='op'>)</span>
-
-<span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='st'>"2017/04-input"</span><span class='op'>)</span>
-
-<span class='va'>passwords</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/strsplit.html'>strsplit</a></span><span class='op'>(</span><span class='va'>input</span>, <span class='st'>" "</span><span class='op'>)</span>
-
-<span class='va'>order_letters</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/strsplit.html'>strsplit</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>""</span><span class='op'>)</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>, collapse <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span>
-<span class='op'>}</span>
-
-<span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_lgl</a></span><span class='op'>(</span><span class='va'>passwords</span>, <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_chr</a></span><span class='op'>(</span><span class='va'>.x</span>, <span class='va'>order_letters</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://purrr.tidyverse.org/'>purrr</a></span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='st'>"2017/04-input"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>passwords</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/strsplit.html'>strsplit</a></span><span class='op'>(</span><span class='va'>input</span>, <span class='st'>" "</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>order_letters</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/strsplit.html'>strsplit</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>""</span><span class='op'>)</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>, collapse <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span></span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_lgl</a></span><span class='op'>(</span><span class='va'>passwords</span>, <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_chr</a></span><span class='op'>(</span><span class='va'>.x</span>, <span class='va'>order_letters</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <div class="layout-chunk" data-layout="l-body">
@@ -2619,24 +2650,23 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h2 id="part-1-3">Part 1</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='st'>"2017/05-input"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='va'>len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>)</span>
-
-<span class='va'>index</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
-<span class='va'>steps</span> <span class='op'>&lt;-</span> <span class='fl'>0</span>
-
-<span class='kw'>repeat</span> <span class='op'>{</span>
-  <span class='va'>steps</span> <span class='op'>&lt;-</span> <span class='va'>steps</span> <span class='op'>+</span> <span class='fl'>1</span>
-  <span class='va'>offset</span> <span class='op'>&lt;-</span> <span class='va'>input</span><span class='op'>[</span><span class='va'>index</span><span class='op'>]</span>
-  <span class='va'>input</span><span class='op'>[</span><span class='va'>index</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>input</span><span class='op'>[</span><span class='va'>index</span><span class='op'>]</span> <span class='op'>+</span> <span class='fl'>1</span>
-  <span class='va'>index</span> <span class='op'>&lt;-</span> <span class='va'>index</span> <span class='op'>+</span> <span class='va'>offset</span>
-
-  <span class='kw'>if</span> <span class='op'>(</span><span class='va'>index</span> <span class='op'>&lt;</span> <span class='fl'>1</span> <span class='op'>|</span> <span class='va'>index</span> <span class='op'>&gt;</span> <span class='va'>len</span><span class='op'>)</span> <span class='kw'>break</span>
-<span class='op'>}</span>
-
-<span class='va'>steps</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='st'>"2017/05-input"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>index</span> <span class='op'>&lt;-</span> <span class='fl'>1</span></span>
+<span><span class='va'>steps</span> <span class='op'>&lt;-</span> <span class='fl'>0</span></span>
+<span></span>
+<span><span class='kw'>repeat</span> <span class='op'>{</span></span>
+<span>  <span class='va'>steps</span> <span class='op'>&lt;-</span> <span class='va'>steps</span> <span class='op'>+</span> <span class='fl'>1</span></span>
+<span>  <span class='va'>offset</span> <span class='op'>&lt;-</span> <span class='va'>input</span><span class='op'>[</span><span class='va'>index</span><span class='op'>]</span></span>
+<span>  <span class='va'>input</span><span class='op'>[</span><span class='va'>index</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>input</span><span class='op'>[</span><span class='va'>index</span><span class='op'>]</span> <span class='op'>+</span> <span class='fl'>1</span></span>
+<span>  <span class='va'>index</span> <span class='op'>&lt;-</span> <span class='va'>index</span> <span class='op'>+</span> <span class='va'>offset</span></span>
+<span></span>
+<span>  <span class='kw'>if</span> <span class='op'>(</span><span class='va'>index</span> <span class='op'>&lt;</span> <span class='fl'>1</span> <span class='op'>|</span> <span class='va'>index</span> <span class='op'>&gt;</span> <span class='va'>len</span><span class='op'>)</span> <span class='kw'>break</span></span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='va'>steps</span></span></code></pre>
 </div>
 </div>
 <div class="layout-chunk" data-layout="l-body">
@@ -2646,29 +2676,28 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h2 id="part-2-3">Part 2</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='st'>"2017/05-input"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='va'>len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>)</span>
-
-<span class='va'>index</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
-<span class='va'>steps</span> <span class='op'>&lt;-</span> <span class='fl'>0</span>
-
-<span class='kw'>repeat</span> <span class='op'>{</span>
-  <span class='va'>steps</span> <span class='op'>&lt;-</span> <span class='va'>steps</span> <span class='op'>+</span> <span class='fl'>1</span>
-  <span class='va'>offset</span> <span class='op'>&lt;-</span> <span class='va'>input</span><span class='op'>[</span><span class='va'>index</span><span class='op'>]</span>
-
-  <span class='kw'>if</span> <span class='op'>(</span><span class='va'>offset</span> <span class='op'>&gt;=</span> <span class='fl'>3</span><span class='op'>)</span> <span class='op'>{</span>
-    <span class='va'>input</span><span class='op'>[</span><span class='va'>index</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>input</span><span class='op'>[</span><span class='va'>index</span><span class='op'>]</span> <span class='op'>-</span> <span class='fl'>1</span>
-  <span class='op'>}</span> <span class='kw'>else</span> <span class='op'>{</span>
-    <span class='va'>input</span><span class='op'>[</span><span class='va'>index</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>input</span><span class='op'>[</span><span class='va'>index</span><span class='op'>]</span> <span class='op'>+</span> <span class='fl'>1</span>
-  <span class='op'>}</span>
-  <span class='va'>index</span> <span class='op'>&lt;-</span> <span class='va'>index</span> <span class='op'>+</span> <span class='va'>offset</span>
-
-  <span class='kw'>if</span> <span class='op'>(</span><span class='va'>index</span> <span class='op'>&lt;</span> <span class='fl'>1</span> <span class='op'>|</span> <span class='va'>index</span> <span class='op'>&gt;</span> <span class='va'>len</span><span class='op'>)</span> <span class='kw'>break</span>
-<span class='op'>}</span>
-
-<span class='va'>steps</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='st'>"2017/05-input"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>index</span> <span class='op'>&lt;-</span> <span class='fl'>1</span></span>
+<span><span class='va'>steps</span> <span class='op'>&lt;-</span> <span class='fl'>0</span></span>
+<span></span>
+<span><span class='kw'>repeat</span> <span class='op'>{</span></span>
+<span>  <span class='va'>steps</span> <span class='op'>&lt;-</span> <span class='va'>steps</span> <span class='op'>+</span> <span class='fl'>1</span></span>
+<span>  <span class='va'>offset</span> <span class='op'>&lt;-</span> <span class='va'>input</span><span class='op'>[</span><span class='va'>index</span><span class='op'>]</span></span>
+<span></span>
+<span>  <span class='kw'>if</span> <span class='op'>(</span><span class='va'>offset</span> <span class='op'>&gt;=</span> <span class='fl'>3</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>    <span class='va'>input</span><span class='op'>[</span><span class='va'>index</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>input</span><span class='op'>[</span><span class='va'>index</span><span class='op'>]</span> <span class='op'>-</span> <span class='fl'>1</span></span>
+<span>  <span class='op'>}</span> <span class='kw'>else</span> <span class='op'>{</span></span>
+<span>    <span class='va'>input</span><span class='op'>[</span><span class='va'>index</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>input</span><span class='op'>[</span><span class='va'>index</span><span class='op'>]</span> <span class='op'>+</span> <span class='fl'>1</span></span>
+<span>  <span class='op'>}</span></span>
+<span>  <span class='va'>index</span> <span class='op'>&lt;-</span> <span class='va'>index</span> <span class='op'>+</span> <span class='va'>offset</span></span>
+<span></span>
+<span>  <span class='kw'>if</span> <span class='op'>(</span><span class='va'>index</span> <span class='op'>&lt;</span> <span class='fl'>1</span> <span class='op'>|</span> <span class='va'>index</span> <span class='op'>&gt;</span> <span class='va'>len</span><span class='op'>)</span> <span class='kw'>break</span></span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='va'>steps</span></span></code></pre>
 </div>
 </div>
 <div class="layout-chunk" data-layout="l-body">
@@ -2684,22 +2713,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h2 id="part-1-4">Part 1</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='st'>"2017/07-input"</span><span class='op'>)</span>
-
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://stringr.tidyverse.org'>stringr</a></span><span class='op'>)</span>
-
-<span class='va'>loc</span> <span class='op'>&lt;-</span> <span class='st'>"ymfjt"</span>
-
-<span class='kw'>repeat</span> <span class='op'>{</span>
-
-  <span class='va'>next_id</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_detect.html'>str_detect</a></span><span class='op'>(</span><span class='va'>input</span>, <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>".+"</span>, <span class='va'>loc</span><span class='op'>)</span><span class='op'>)</span>
-
-  <span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span><span class='op'>(</span><span class='op'>!</span><span class='va'>next_id</span><span class='op'>)</span><span class='op'>)</span> <span class='kw'>break</span>
-
-  <span class='va'>loc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_extract.html'>str_extract</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>[</span><span class='va'>next_id</span><span class='op'>]</span>, <span class='st'>"^[a-z]+"</span><span class='op'>)</span>
-<span class='op'>}</span>
-<span class='va'>loc</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='st'>"2017/07-input"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://stringr.tidyverse.org'>stringr</a></span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>loc</span> <span class='op'>&lt;-</span> <span class='st'>"ymfjt"</span></span>
+<span></span>
+<span><span class='kw'>repeat</span> <span class='op'>{</span></span>
+<span></span>
+<span>  <span class='va'>next_id</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_detect.html'>str_detect</a></span><span class='op'>(</span><span class='va'>input</span>, <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>".+"</span>, <span class='va'>loc</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span>  <span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span><span class='op'>(</span><span class='op'>!</span><span class='va'>next_id</span><span class='op'>)</span><span class='op'>)</span> <span class='kw'>break</span></span>
+<span></span>
+<span>  <span class='va'>loc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_extract.html'>str_extract</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>[</span><span class='va'>next_id</span><span class='op'>]</span>, <span class='st'>"^[a-z]+"</span><span class='op'>)</span></span>
+<span><span class='op'>}</span></span>
+<span><span class='va'>loc</span></span></code></pre>
 </div>
 </div>
 <div class="layout-chunk" data-layout="l-body">
