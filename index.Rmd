@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 This website is created using the [emilhvitfeldt/rstats-adventofcode](https://github.com/emilhvitfeldt/rstats-adventofcode) repository. I try to save all my solution in one place here.
 
-I don't have any rules I follow. I will end up doing most solutions using base R because of the nanture of the problems. I will be using both `purrr` and `stringr` when the need comes up, I don't hate myself. I'm here to write code and have fun doing it.
+I don't have any rules I follow. I will end up doing most solutions using base R because of the nature of the problems. I will be using both `purrr` and `stringr` when the need comes up, I don't hate myself. I'm here to write code and have fun doing it.
 
 # Completion
 
