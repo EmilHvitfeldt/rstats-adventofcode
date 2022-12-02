@@ -2514,8 +2514,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<style>#panelset_day-2 {color: #D63131 !important;}
-#panelset_day-3 {color: #D63131 !important;}
+<style>#panelset_day-3 {color: #D63131 !important;}
 #panelset_day-4 {color: #D63131 !important;}
 #panelset_day-5 {color: #D63131 !important;}
 #panelset_day-6 {color: #D63131 !important;}
@@ -2575,6 +2574,63 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </section>
 <section id="day-2" class="panel-name panel">
 <h1 class="panel-name">Day 2</h1>
+<h2 id="part-1-1">Part 1</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='st'>"2022/02-input"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>dict</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>A <span class='op'>=</span> <span class='st'>"rock"</span>, B <span class='op'>=</span> <span class='st'>"paper"</span>, C <span class='op'>=</span> <span class='st'>"scissors"</span>,</span>
+<span>          X <span class='op'>=</span> <span class='st'>"rock"</span>, Y <span class='op'>=</span> <span class='st'>"paper"</span>, Z <span class='op'>=</span> <span class='st'>"scissors"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>you</span> <span class='op'>&lt;-</span> <span class='va'>dict</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/substr.html'>substr</a></span><span class='op'>(</span><span class='va'>input</span>, <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>]</span></span>
+<span><span class='va'>me</span> <span class='op'>&lt;-</span> <span class='va'>dict</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/substr.html'>substr</a></span><span class='op'>(</span><span class='va'>input</span>, <span class='fl'>3</span>, <span class='fl'>3</span><span class='op'>)</span><span class='op'>]</span></span>
+<span></span>
+<span><span class='va'>mat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"tie"</span>, <span class='st'>"lose"</span>, <span class='st'>"win"</span>,</span>
+<span>    <span class='st'>"win"</span>, <span class='st'>"tie"</span>, <span class='st'>"lose"</span>,</span>
+<span>    <span class='st'>"lose"</span>, <span class='st'>"win"</span>, <span class='st'>"tie"</span><span class='op'>)</span>,</span>
+<span>  byrow <span class='op'>=</span> <span class='cn'>TRUE</span>, ncol <span class='op'>=</span> <span class='fl'>3</span>,</span>
+<span>  dimnames <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"rock"</span>, <span class='st'>"paper"</span>, <span class='st'>"scissors"</span><span class='op'>)</span>,</span>
+<span>                  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"rock"</span>, <span class='st'>"paper"</span>, <span class='st'>"scissors"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>scores</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>win <span class='op'>=</span> <span class='fl'>6</span>, tie <span class='op'>=</span> <span class='fl'>3</span>, lose <span class='op'>=</span> <span class='fl'>0</span>, rock <span class='op'>=</span> <span class='fl'>1</span>, paper <span class='op'>=</span> <span class='fl'>2</span>, scissors <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>scores</span><span class='op'>[</span><span class='va'>mat</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>me</span>, <span class='va'>you</span><span class='op'>)</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>scores</span><span class='op'>[</span><span class='va'>me</span><span class='op'>]</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code>0.002 sec elapsed</code></pre>
+</div>
+<h2 id="part-2-1">Part 2</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='st'>"2022/02-input"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>dict</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>A <span class='op'>=</span> <span class='st'>"rock"</span>, B <span class='op'>=</span> <span class='st'>"paper"</span>, C <span class='op'>=</span> <span class='st'>"scissors"</span>,</span>
+<span>          X <span class='op'>=</span> <span class='st'>"lose"</span>, Y <span class='op'>=</span> <span class='st'>"tie"</span>, Z <span class='op'>=</span> <span class='st'>"win"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>you</span> <span class='op'>&lt;-</span> <span class='va'>dict</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/substr.html'>substr</a></span><span class='op'>(</span><span class='va'>input</span>, <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>]</span></span>
+<span><span class='va'>me</span> <span class='op'>&lt;-</span> <span class='va'>dict</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/substr.html'>substr</a></span><span class='op'>(</span><span class='va'>input</span>, <span class='fl'>3</span>, <span class='fl'>3</span><span class='op'>)</span><span class='op'>]</span></span>
+<span></span>
+<span><span class='va'>mat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"scissors"</span>, <span class='st'>"rock"</span>, <span class='st'>"paper"</span>,</span>
+<span>    <span class='st'>"paper"</span>, <span class='st'>"scissors"</span>, <span class='st'>"rock"</span>,</span>
+<span>    <span class='st'>"rock"</span>, <span class='st'>"paper"</span>, <span class='st'>"scissors"</span><span class='op'>)</span>,</span>
+<span>  byrow <span class='op'>=</span> <span class='cn'>TRUE</span>, ncol <span class='op'>=</span> <span class='fl'>3</span>,</span>
+<span>  dimnames <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"lose"</span>, <span class='st'>"win"</span>, <span class='st'>"tie"</span><span class='op'>)</span>,</span>
+<span>                  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"rock"</span>, <span class='st'>"paper"</span>, <span class='st'>"scissors"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='op'>)</span></span>
+<span><span class='va'>mat</span></span>
+<span></span>
+<span><span class='va'>scores</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>win <span class='op'>=</span> <span class='fl'>6</span>, tie <span class='op'>=</span> <span class='fl'>3</span>, lose <span class='op'>=</span> <span class='fl'>0</span>, rock <span class='op'>=</span> <span class='fl'>1</span>, paper <span class='op'>=</span> <span class='fl'>2</span>, scissors <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>scores</span><span class='op'>[</span><span class='va'>mat</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>me</span>, <span class='va'>you</span><span class='op'>)</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>scores</span><span class='op'>[</span><span class='va'>me</span><span class='op'>]</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code>0.002 sec elapsed</code></pre>
+</div>
 </section>
 <section id="day-3" class="panel-name panel">
 <h1 class="panel-name">Day 3</h1>
@@ -2646,7 +2702,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h1 class="panel-name">Day 25</h1>
 </section>
 </div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
