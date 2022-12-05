@@ -1,3 +1,11 @@
 knitr
 tictoc
 purrr
+tidyverse
+ggplot2
+tibble
+tidyr
+readr
+dplyr
+stringr
+forcats
