@@ -248,6 +248,28 @@ toc()
 
 # Day 8 {.panel-name}
 
+## Part 1
+
+```{r, code=readLines("2022/08-1.R"), eval=FALSE}
+```
+
+```{r day08part1, echo=FALSE, cache=TRUE}
+tic()
+tmp <- eval(parse(text = readLines("2022/08-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2022/08-2.R"), eval=FALSE}
+```
+
+```{r day08part2, echo=FALSE, cache=TRUE}
+tic()
+tmp <- eval(parse(text = readLines("2022/08-2.R")))
+toc()
+```
+
 :::
 
 ::: {.panel}
