@@ -2,7 +2,8 @@ input <- readLines("2017/07-input")
 
 library(stringr)
 
-loc <- "ymfjt"
+loc <- str_subset(input, "->")[1] |>
+  str_extract("[a-z]+")
 
 repeat {
 
@@ -12,4 +13,5 @@ repeat {
 
   loc <- str_extract(input[next_id], "^[a-z]+")
 }
+
 loc
