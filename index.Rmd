@@ -47,7 +47,7 @@ get_solutions <- function(year) {
   tibble(Day = res, year = year)
 }
 
-years <- 2015:2022
+years <- 2015:2023
 
 years %>%
   map_dfr(get_solutions) %>%

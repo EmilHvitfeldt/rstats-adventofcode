@@ -22,5 +22,7 @@ navbar:
       href: 2021.html
     - text: "2022"
       href: 2022.html
+    - text: "2023"
+      href: 2023.html
 output:
   distill::distill_article
