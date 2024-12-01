@@ -33,6 +33,7 @@ thead {
 ```
 
 ```{r}
+#| message: false
 library(tidyverse)
 
 get_solutions <- function(year) {
@@ -47,7 +48,7 @@ get_solutions <- function(year) {
   tibble(Day = res, year = year)
 }
 
-years <- 2015:2023
+years <- 2015:2024
 
 years %>%
   map_dfr(get_solutions) %>%

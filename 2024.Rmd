@@ -1,0 +1,223 @@
+---
+title: "My 2024 Solutions"
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(tictoc)
+knitr::opts_chunk$set()
+xaringanExtra::use_panelset()
+```
+
+```{css, echo=FALSE}
+.panel-tab {
+  flex: 1 0 20%;
+  text-align: center;
+}
+```
+
+```{r, echo=FALSE}
+part1 <- fs::dir_ls("2024/") |>
+  stringr::str_subset("-1") |>
+  stringr::str_sub(6, 7) |>
+  as.numeric()
+
+part2 <- fs::dir_ls("2024/") |>
+  stringr::str_subset("-2") |>
+  stringr::str_sub(6, 7) |>
+  as.numeric()
+
+one_done <- setdiff(setdiff(1:25, part2), setdiff(1:25, part1))
+none_done <- intersect(setdiff(1:25, part2), setdiff(1:25, part1))
+
+htmltools::tags$style(
+  paste0(collapse = "\n",
+    c(
+      glue::glue(
+        "#panelset_day-[one_done] {color: #EBB626 !important;}",
+        .open = "[", .close = "]"
+      ),
+      glue::glue(
+        "#panelset_day-[none_done] {color: #D63131 !important;}",
+        .open = "[", .close = "]"
+      )
+    )
+  )
+)
+```
+
+::::: {.panelset}
+
+::: {.panel}
+
+# Day 1 {.panel-name}
+
+## Part 1
+
+```{r, code=readLines("2024/01-1.R"), eval=FALSE}
+```
+
+```{r day01part1, echo=FALSE, cache=TRUE}
+tic()
+tmp <- eval(parse(text = readLines("2024/01-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2024/01-2.R"), eval=FALSE}
+```
+
+```{r day01part2, echo=FALSE, cache=TRUE}
+tic()
+tmp <- eval(parse(text = readLines("2024/01-2.R")))
+toc()
+```
+
+:::
+
+::: {.panel}
+
+# Day 2 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 3 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 4 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 5 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 6 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 7 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 8 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 9 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 10 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 11 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 12 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 13 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 14 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 15 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 16 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 17 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 18 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 19 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 20 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 21 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 22 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 23 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 24 {.panel-name}
+
+:::
+
+::: {.panel}
+
+# Day 25 {.panel-name}
+
+:::
+
+:::::
