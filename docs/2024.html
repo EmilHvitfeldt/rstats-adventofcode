@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Emil Hvitfeldt’s solutions">
 
-<title>R Advent Of Code</title>
+<title>My 2024 Solutions</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,19 +20,55 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="index_files/libs/clipboard/clipboard.min.js"></script>
-<script src="index_files/libs/quarto-html/quarto.js"></script>
-<script src="index_files/libs/quarto-html/popper.min.js"></script>
-<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="index_files/libs/quarto-html/anchor.min.js"></script>
-<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="index_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="2024_files/libs/clipboard/clipboard.min.js"></script>
+<script src="2024_files/libs/quarto-html/quarto.js"></script>
+<script src="2024_files/libs/quarto-html/popper.min.js"></script>
+<script src="2024_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="2024_files/libs/quarto-html/anchor.min.js"></script>
+<link href="2024_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="2024_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="2024_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="2024_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="2024_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="2024_files/libs/panelset-0.3.0/panelset.css" rel="stylesheet">
+<script src="2024_files/libs/panelset-0.3.0/panelset.js"></script>
 
 
 </head>
@@ -46,14 +81,9 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">R Advent Of Code</h1>
+<h1 class="title">My 2024 Solutions</h1>
 </div>
 
-<div>
-  <div class="description">
-    <p>Emil Hvitfeldt’s solutions</p>
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
@@ -68,370 +98,157 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This website is created using the <a href="https://github.com/emilhvitfeldt/rstats-adventofcode">emilhvitfeldt/rstats-adventofcode</a> repository. I try to save all my solution in one place here.</p>
-<p>I don’t have any rules I follow. I will end up doing most solutions using base R because of the nature of the problems. I will be using both <code>purrr</code> and <code>stringr</code> when the need comes up, I don’t hate myself. I’m here to write code and have fun doing it.</p>
-<section id="completion" class="level1">
-<h1>Completion</h1>
 <div class="cell">
 <style type="text/css">
-tbody {
-  color: #ffff66;
-}
-
-thead {
-  color: #cccccc;
+.panel-tab {
+  flex: 1 0 20%;
+  text-align: center;
 }
 </style>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Day</th>
-<th style="text-align: left;">2015</th>
-<th style="text-align: left;">2016</th>
-<th style="text-align: left;">2017</th>
-<th style="text-align: left;">2018</th>
-<th style="text-align: left;">2019</th>
-<th style="text-align: left;">2020</th>
-<th style="text-align: left;">2021</th>
-<th style="text-align: left;">2022</th>
-<th style="text-align: left;">2023</th>
-<th style="text-align: left;">2024</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">3</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">4</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">5</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">6</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">7</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">*</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">8</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">9</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">10</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">*</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">11</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">12</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">13</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">14</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">*</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">15</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">*</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">16</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">17</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">18</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">19</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">20</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">21</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">22</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">*</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">23</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">24</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">25</td>
-<td style="text-align: left;">*</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">*</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-</tbody>
-</table>
+<style>#panelset_day-2 {color: #D63131 !important;}
+#panelset_day-3 {color: #D63131 !important;}
+#panelset_day-4 {color: #D63131 !important;}
+#panelset_day-5 {color: #D63131 !important;}
+#panelset_day-6 {color: #D63131 !important;}
+#panelset_day-7 {color: #D63131 !important;}
+#panelset_day-8 {color: #D63131 !important;}
+#panelset_day-9 {color: #D63131 !important;}
+#panelset_day-10 {color: #D63131 !important;}
+#panelset_day-11 {color: #D63131 !important;}
+#panelset_day-12 {color: #D63131 !important;}
+#panelset_day-13 {color: #D63131 !important;}
+#panelset_day-14 {color: #D63131 !important;}
+#panelset_day-15 {color: #D63131 !important;}
+#panelset_day-16 {color: #D63131 !important;}
+#panelset_day-17 {color: #D63131 !important;}
+#panelset_day-18 {color: #D63131 !important;}
+#panelset_day-19 {color: #D63131 !important;}
+#panelset_day-20 {color: #D63131 !important;}
+#panelset_day-21 {color: #D63131 !important;}
+#panelset_day-22 {color: #D63131 !important;}
+#panelset_day-23 {color: #D63131 !important;}
+#panelset_day-24 {color: #D63131 !important;}
+#panelset_day-25 {color: #D63131 !important;}</style>
+</div>
+</div>
+<div class="panelset">
+<section id="day-1" class="level1 panel-name panel">
+<h1 class="panel-name">Day 1</h1>
+<section id="part-1" class="level2">
+<h2 class="anchored" data-anchor-id="part-1">Part 1</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_delim</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"2024/01-input"</span>, </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">delim =</span> <span class="st">"   "</span>, </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_names =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">show_col_types =</span> <span class="cn">FALSE</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">abs</span>(<span class="fu">sort</span>(input<span class="sc">$</span>X1) <span class="sc">-</span> <span class="fu">sort</span>(input<span class="sc">$</span>X2)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>0.152 sec elapsed</code></pre>
 </div>
 </div>
 </section>
+<section id="part-2" class="level2">
+<h2 class="anchored" data-anchor-id="part-2">Part 2</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_delim</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"2024/01-input"</span>, </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">delim =</span> <span class="st">"   "</span>, </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_names =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">show_col_types =</span> <span class="cn">FALSE</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="fu">table</span>(input<span class="sc">$</span>X2)[<span class="fu">as.character</span>(input<span class="sc">$</span>X1)]</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">abs</span>(input<span class="sc">$</span>X1 <span class="sc">*</span> counts), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>0.005 sec elapsed</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="day-2" class="level1 panel-name panel">
+<h1 class="panel-name">Day 2</h1>
+</section>
+<section id="day-3" class="level1 panel-name panel">
+<h1 class="panel-name">Day 3</h1>
+</section>
+<section id="day-4" class="level1 panel-name panel">
+<h1 class="panel-name">Day 4</h1>
+</section>
+<section id="day-5" class="level1 panel-name panel">
+<h1 class="panel-name">Day 5</h1>
+</section>
+<section id="day-6" class="level1 panel-name panel">
+<h1 class="panel-name">Day 6</h1>
+</section>
+<section id="day-7" class="level1 panel-name panel">
+<h1 class="panel-name">Day 7</h1>
+</section>
+<section id="day-8" class="level1 panel-name panel">
+<h1 class="panel-name">Day 8</h1>
+</section>
+<section id="day-9" class="level1 panel-name panel">
+<h1 class="panel-name">Day 9</h1>
+</section>
+<section id="day-10" class="level1 panel-name panel">
+<h1 class="panel-name">Day 10</h1>
+</section>
+<section id="day-11" class="level1 panel-name panel">
+<h1 class="panel-name">Day 11</h1>
+</section>
+<section id="day-12" class="level1 panel-name panel">
+<h1 class="panel-name">Day 12</h1>
+</section>
+<section id="day-13" class="level1 panel-name panel">
+<h1 class="panel-name">Day 13</h1>
+</section>
+<section id="day-14" class="level1 panel-name panel">
+<h1 class="panel-name">Day 14</h1>
+</section>
+<section id="day-15" class="level1 panel-name panel">
+<h1 class="panel-name">Day 15</h1>
+</section>
+<section id="day-16" class="level1 panel-name panel">
+<h1 class="panel-name">Day 16</h1>
+</section>
+<section id="day-17" class="level1 panel-name panel">
+<h1 class="panel-name">Day 17</h1>
+</section>
+<section id="day-18" class="level1 panel-name panel">
+<h1 class="panel-name">Day 18</h1>
+</section>
+<section id="day-19" class="level1 panel-name panel">
+<h1 class="panel-name">Day 19</h1>
+</section>
+<section id="day-20" class="level1 panel-name panel">
+<h1 class="panel-name">Day 20</h1>
+</section>
+<section id="day-21" class="level1 panel-name panel">
+<h1 class="panel-name">Day 21</h1>
+</section>
+<section id="day-22" class="level1 panel-name panel">
+<h1 class="panel-name">Day 22</h1>
+</section>
+<section id="day-23" class="level1 panel-name panel">
+<h1 class="panel-name">Day 23</h1>
+</section>
+<section id="day-24" class="level1 panel-name panel">
+<h1 class="panel-name">Day 24</h1>
+</section>
+<section id="day-25" class="level1 panel-name panel">
+<h1 class="panel-name">Day 25</h1>
+</section>
+</div>
 
 </main>
 <!-- /main column -->

@@ -64,12 +64,19 @@
       "last_modified": "2023-12-04T09:04:22-08:00"
     },
     {
+      "path": "2024.html",
+      "title": "My 2024 Solutions",
+      "author": [],
+      "contents": "\n\n\n\n\nMy 2024 Solutions\n\n\n\n\n\n\n    \n  \n    \n  \n  \n\n\n\n\n\n\n\n\n\nDay 1\nPart 1\n\ninput <- readr::read_delim(\n  \"2024/01-input\", \n  delim = \"   \", \n  col_names = FALSE,\n  show_col_types = FALSE\n)\n\nsum(abs(sort(input$X1) - sort(input$X2)))\n\n\n\n0.152 sec elapsed\n\n\nPart 2\n\ninput <- readr::read_delim(\n  \"2024/01-input\", \n  delim = \"   \", \n  col_names = FALSE,\n  show_col_types = FALSE\n)\n\ncounts <- table(input$X2)[as.character(input$X1)]\n\nsum(abs(input$X1 * counts), na.rm = TRUE)\n\n\n\n0.005 sec elapsed\n\n\nDay 2\nDay 3\nDay 4\nDay 5\nDay 6\nDay 7\nDay 8\nDay 9\nDay 10\nDay 11\nDay 12\nDay 13\nDay 14\nDay 15\nDay 16\nDay 17\nDay 18\nDay 19\nDay 20\nDay 21\nDay 22\nDay 23\nDay 24\nDay 25\n\n\n \n\n\n\n\n",
+      "last_modified": "2024-12-01T12:58:51-08:00"
+    },
+    {
       "path": "index.html",
       "title": "R Advent Of Code",
       "description": "Emil Hvitfeldt's solutions\n",
       "author": [],
-      "contents": "\nThis website is created using the emilhvitfeldt/rstats-adventofcode repository. I try to save all my solution in one place here.\nI don’t have any rules I follow. I will end up doing most solutions using base R because of the nature of the problems. I will be using both purrr and stringr when the need comes up, I don’t hate myself. I’m here to write code and have fun doing it.\nCompletion\n\n\n\nDay\n2015\n2016\n2017\n2018\n2019\n2020\n2021\n2022\n2023\n1\n**\n**\n**\n**\n**\n**\n**\n**\n**\n2\n**\n**\n**\n**\n\n**\n**\n**\n**\n3\n**\n**\n**\n**\n\n**\n**\n**\n\n4\n**\n**\n**\n**\n**\n**\n**\n**\n\n5\n**\n**\n**\n**\n\n**\n**\n**\n\n6\n**\n**\n**\n**\n\n**\n**\n**\n\n7\n**\n**\n**\n*\n\n**\n**\n**\n\n8\n**\n**\n**\n\n\n**\n**\n**\n\n9\n**\n**\n\n\n\n**\n**\n\n\n10\n**\n**\n\n\n\n**\n**\n*\n\n11\n**\n\n\n\n\n**\n**\n\n\n12\n**\n**\n\n\n\n**\n**\n\n\n13\n**\n**\n\n\n\n**\n**\n\n\n14\n**\n**\n\n\n\n*\n**\n\n\n15\n**\n**\n\n\n\n*\n\n\n\n16\n**\n**\n\n\n\n**\n\n\n\n17\n**\n\n\n\n\n**\n\n\n\n18\n**\n**\n\n\n\n**\n\n\n\n19\n**\n**\n\n\n\n**\n\n\n\n20\n**\n**\n\n\n\n**\n\n\n\n21\n**\n**\n\n\n\n**\n\n\n\n22\n\n*\n\n\n\n**\n\n\n\n23\n**\n\n\n\n\n**\n\n\n\n24\n**\n\n\n\n\n**\n\n\n\n25\n*\n\n\n\n\n*\n\n\n\n\n\n\n\n",
-      "last_modified": "2023-12-01T21:16:48-08:00"
+      "contents": "\nThis website is created using the emilhvitfeldt/rstats-adventofcode repository. I try to save all my solution in one place here.\nI don’t have any rules I follow. I will end up doing most solutions using base R because of the nature of the problems. I will be using both purrr and stringr when the need comes up, I don’t hate myself. I’m here to write code and have fun doing it.\nCompletion\n\n\n\nDay\n2015\n2016\n2017\n2018\n2019\n2020\n2021\n2022\n2023\n2024\n1\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n2\n**\n**\n**\n**\n\n**\n**\n**\n**\n\n3\n**\n**\n**\n**\n\n**\n**\n**\n**\n\n4\n**\n**\n**\n**\n**\n**\n**\n**\n**\n\n5\n**\n**\n**\n**\n\n**\n**\n**\n**\n\n6\n**\n**\n**\n**\n\n**\n**\n**\n\n\n7\n**\n**\n**\n*\n\n**\n**\n**\n\n\n8\n**\n**\n**\n\n\n**\n**\n**\n\n\n9\n**\n**\n\n\n\n**\n**\n\n\n\n10\n**\n**\n\n\n\n**\n**\n*\n\n\n11\n**\n\n\n\n\n**\n**\n\n\n\n12\n**\n**\n\n\n\n**\n**\n\n\n\n13\n**\n**\n\n\n\n**\n**\n\n\n\n14\n**\n**\n\n\n\n*\n**\n\n\n\n15\n**\n**\n\n\n\n*\n\n\n\n\n16\n**\n**\n\n\n\n**\n\n\n\n\n17\n**\n\n\n\n\n**\n\n\n\n\n18\n**\n**\n\n\n\n**\n\n\n\n\n19\n**\n**\n\n\n\n**\n\n\n\n\n20\n**\n**\n\n\n\n**\n\n\n\n\n21\n**\n**\n\n\n\n**\n\n\n\n\n22\n\n*\n\n\n\n**\n\n\n\n\n23\n**\n\n\n\n\n**\n\n\n\n\n24\n**\n\n\n\n\n**\n\n\n\n\n25\n*\n\n\n\n\n*\n\n\n\n\n\n\n\n\n",
+      "last_modified": "2024-12-01T12:58:51-08:00"
     }
   ],
   "collections": []
