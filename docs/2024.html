@@ -21,7 +21,7 @@
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -32,7 +32,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -2542,8 +2542,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<style>#panelset_day-2 {color: #D63131 !important;}
-#panelset_day-3 {color: #D63131 !important;}
+<style>#panelset_day-3 {color: #D63131 !important;}
 #panelset_day-4 {color: #D63131 !important;}
 #panelset_day-5 {color: #D63131 !important;}
 #panelset_day-6 {color: #D63131 !important;}
@@ -2607,6 +2606,69 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </section>
 <section id="day-2" class="panel-name panel">
 <h1 class="panel-name">Day 2</h1>
+<h2 id="part-1-1">Part 1</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>read_list</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>path</span>, <span class='va'>sep</span> <span class='op'>=</span> <span class='st'>""</span>, <span class='va'>type</span> <span class='op'>=</span> <span class='va'>identity</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>lines</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span></span>
+<span>  <span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/strsplit.html'>strsplit</a></span><span class='op'>(</span><span class='va'>lines</span>, <span class='va'>sep</span><span class='op'>)</span></span>
+<span>  <span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>res</span>, <span class='va'>type</span><span class='op'>)</span></span>
+<span>  <span class='va'>res</span></span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'>read_list</span><span class='op'>(</span><span class='st'>"2024/02-input"</span>, <span class='st'>" "</span>, <span class='va'>as.integer</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>safe</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>diffs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/diff.html'>diff</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span>
+<span>  <span class='va'>cond1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span><span class='op'>(</span><span class='va'>diffs</span> <span class='op'>&gt;</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>||</span> <span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span><span class='op'>(</span><span class='va'>diffs</span> <span class='op'>&lt;</span> <span class='fl'>0</span><span class='op'>)</span></span>
+<span>  <span class='va'>cond2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>diffs</span><span class='op'>)</span> <span class='op'>&gt;=</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>diffs</span><span class='op'>)</span> <span class='op'>&lt;=</span> <span class='fl'>3</span><span class='op'>)</span></span>
+<span>  <span class='va'>cond1</span> <span class='op'>&amp;&amp;</span> <span class='va'>cond2</span></span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>vapply</a></span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>safe</span>, <span class='fu'><a href='https://rdrr.io/r/base/logical.html'>logical</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code>0.033 sec elapsed</code></pre>
+</div>
+<h2 id="part-2-1">Part 2</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>read_list</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>path</span>, <span class='va'>sep</span> <span class='op'>=</span> <span class='st'>""</span>, <span class='va'>type</span> <span class='op'>=</span> <span class='va'>identity</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>lines</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span></span>
+<span>  <span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/strsplit.html'>strsplit</a></span><span class='op'>(</span><span class='va'>lines</span>, <span class='va'>sep</span><span class='op'>)</span></span>
+<span>  <span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>res</span>, <span class='va'>type</span><span class='op'>)</span></span>
+<span>  <span class='va'>res</span></span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'>read_list</span><span class='op'>(</span><span class='st'>"2024/02-input"</span>, <span class='st'>" "</span>, <span class='va'>as.integer</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>safe</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>diffs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/diff.html'>diff</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span>
+<span>  <span class='va'>cond1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span><span class='op'>(</span><span class='va'>diffs</span> <span class='op'>&gt;</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>||</span> <span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span><span class='op'>(</span><span class='va'>diffs</span> <span class='op'>&lt;</span> <span class='fl'>0</span><span class='op'>)</span></span>
+<span>  <span class='va'>cond2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>diffs</span><span class='op'>)</span> <span class='op'>&gt;=</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>diffs</span><span class='op'>)</span> <span class='op'>&lt;=</span> <span class='fl'>3</span><span class='op'>)</span></span>
+<span>  <span class='va'>cond1</span> <span class='op'>&amp;&amp;</span> <span class='va'>cond2</span></span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='va'>skip_safe</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>is_safe</span> <span class='op'>&lt;-</span> <span class='cn'>FALSE</span></span>
+<span>  <span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>    <span class='kw'>if</span> <span class='op'>(</span><span class='fu'>safe</span><span class='op'>(</span><span class='va'>x</span><span class='op'>[</span><span class='op'>-</span><span class='va'>i</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>      <span class='va'>is_safe</span> <span class='op'>&lt;-</span> <span class='cn'>TRUE</span></span>
+<span>      <span class='kw'>break</span></span>
+<span>    <span class='op'>}</span></span>
+<span>  <span class='op'>}</span></span>
+<span>  <span class='va'>is_safe</span></span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>vapply</a></span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>skip_safe</span>, <span class='fu'><a href='https://rdrr.io/r/base/logical.html'>logical</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code>0.024 sec elapsed</code></pre>
+</div>
 </section>
 <section id="day-3" class="panel-name panel">
 <h1 class="panel-name">Day 3</h1>
@@ -2678,7 +2740,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h1 class="panel-name">Day 25</h1>
 </section>
 </div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
