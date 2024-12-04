@@ -3,10 +3,8 @@ input <- readLines("2024/03-input") |>
 
 mul <- function(x, y) x * y
 
-my_eval <- function(x) eval(parse(text = x))
-
 input |>
   stringr::str_extract_all("mul\\(\\d+,\\d+\\)") |>
   unlist() |>
-  purrr::map_int(my_eval) |>
+  purrr::map_int(\(x) eval(parse(text = x))) |>
   sum()
