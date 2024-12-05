@@ -2542,8 +2542,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<style>#panelset_day-5 {color: #D63131 !important;}
-#panelset_day-6 {color: #D63131 !important;}
+<style>#panelset_day-6 {color: #D63131 !important;}
 #panelset_day-7 {color: #D63131 !important;}
 #panelset_day-8 {color: #D63131 !important;}
 #panelset_day-9 {color: #D63131 !important;}
@@ -2803,6 +2802,114 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </section>
 <section id="day-5" class="panel-name panel">
 <h1 class="panel-name">Day 5</h1>
+<h2 id="part-1-4">Part 1</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='st'>"2024/05-input"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>sep</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='va'>input</span> <span class='op'>==</span> <span class='st'>""</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>rules</span> <span class='op'>&lt;-</span> <span class='va'>input</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='va'>sep</span> <span class='op'>-</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>]</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/strsplit.html'>strsplit</a></span><span class='op'>(</span><span class='st'>"\\|"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>as.integer</span><span class='op'>)</span></span>
+<span><span class='va'>updates</span> <span class='op'>&lt;-</span> <span class='va'>input</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='va'>sep</span> <span class='op'>+</span> <span class='fl'>1</span>, <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>)</span><span class='op'>)</span><span class='op'>]</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/strsplit.html'>strsplit</a></span><span class='op'>(</span><span class='st'>","</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>as.integer</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>pass_rule</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>rule</span>, <span class='va'>update</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>order</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/diff.html'>diff</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/bit64/man/bit64S3.html'>match</a></span><span class='op'>(</span><span class='va'>rule</span>, <span class='va'>update</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>order</span><span class='op'>)</span> <span class='op'>||</span> <span class='va'>order</span> <span class='op'>&gt;</span> <span class='fl'>0</span></span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='va'>pass_rules</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>update</span>, <span class='va'>rules</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>vapply</a></span><span class='op'>(</span><span class='va'>rules</span>, <span class='va'>pass_rule</span>, <span class='fu'><a href='https://rdrr.io/r/base/logical.html'>logical</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>, update <span class='op'>=</span> <span class='va'>update</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='va'>which_passes</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>vapply</a></span><span class='op'>(</span><span class='va'>updates</span>, <span class='va'>pass_rules</span>, <span class='fu'><a href='https://rdrr.io/r/base/logical.html'>logical</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>, <span class='va'>rules</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>get_middle</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>mid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>/</span> <span class='fl'>2</span> <span class='op'>+</span> <span class='fl'>1</span></span>
+<span>  <span class='va'>x</span><span class='op'>[</span><span class='va'>mid</span><span class='op'>]</span></span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='va'>updates</span><span class='op'>[</span><span class='va'>which_passes</span><span class='op'>]</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>get_middle</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code>0.812 sec elapsed</code></pre>
+</div>
+<h2 id="part-2-4">Part 2</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='st'>"2024/05-input"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>sep</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='va'>input</span> <span class='op'>==</span> <span class='st'>""</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>rules</span> <span class='op'>&lt;-</span> <span class='va'>input</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='va'>sep</span> <span class='op'>-</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>]</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/strsplit.html'>strsplit</a></span><span class='op'>(</span><span class='st'>"\\|"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>as.integer</span><span class='op'>)</span></span>
+<span><span class='va'>updates</span> <span class='op'>&lt;-</span> <span class='va'>input</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='va'>sep</span> <span class='op'>+</span> <span class='fl'>1</span>, <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>)</span><span class='op'>)</span><span class='op'>]</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/strsplit.html'>strsplit</a></span><span class='op'>(</span><span class='st'>","</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>as.integer</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>pass_rule</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>rule</span>, <span class='va'>update</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>order</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/diff.html'>diff</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/bit64/man/bit64S3.html'>match</a></span><span class='op'>(</span><span class='va'>rule</span>, <span class='va'>update</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>order</span><span class='op'>)</span> <span class='op'>||</span> <span class='va'>order</span> <span class='op'>&gt;</span> <span class='fl'>0</span></span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='va'>pass_rules</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>update</span>, <span class='va'>rules</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>vapply</a></span><span class='op'>(</span><span class='va'>rules</span>, <span class='va'>pass_rule</span>, <span class='fu'><a href='https://rdrr.io/r/base/logical.html'>logical</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>, update <span class='op'>=</span> <span class='va'>update</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='va'>which_passes</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>vapply</a></span><span class='op'>(</span><span class='va'>updates</span>, <span class='va'>pass_rules</span>, <span class='fu'><a href='https://rdrr.io/r/base/logical.html'>logical</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>, <span class='va'>rules</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>get_middle</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>mid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>/</span> <span class='fl'>2</span> <span class='op'>+</span> <span class='fl'>1</span></span>
+<span>  <span class='va'>x</span><span class='op'>[</span><span class='va'>mid</span><span class='op'>]</span></span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='va'>uncorrect</span> <span class='op'>&lt;-</span> <span class='va'>updates</span><span class='op'>[</span><span class='op'>!</span><span class='va'>which_passes</span><span class='op'>]</span></span>
+<span></span>
+<span><span class='va'>fix_order</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>rule</span>, <span class='va'>update</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>matches</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/bit64/man/bit64S3.html'>match</a></span><span class='op'>(</span><span class='va'>rule</span>, <span class='va'>update</span><span class='op'>)</span></span>
+<span>  <span class='va'>before</span> <span class='op'>&lt;-</span> <span class='va'>matches</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span></span>
+<span>  <span class='va'>after</span> <span class='op'>&lt;-</span> <span class='va'>matches</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span></span>
+<span>  </span>
+<span>  <span class='va'>before_inds</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://generics.r-lib.org/reference/setops.html'>setdiff</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='va'>before</span><span class='op'>)</span>, <span class='va'>after</span><span class='op'>)</span></span>
+<span>  </span>
+<span>  <span class='va'>after_inds</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://generics.r-lib.org/reference/setops.html'>setdiff</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span><span class='op'>(</span><span class='va'>update</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>before_inds</span>, <span class='va'>after</span><span class='op'>)</span><span class='op'>)</span></span>
+<span>  </span>
+<span>  <span class='va'>new_order</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>before_inds</span>, <span class='va'>after</span>, <span class='va'>after_inds</span><span class='op'>)</span></span>
+<span>  <span class='va'>update</span><span class='op'>[</span><span class='va'>new_order</span><span class='op'>]</span></span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='va'>fix_update</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>update</span>, <span class='va'>rules</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='kw'>while</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'>pass_rules</span><span class='op'>(</span><span class='va'>update</span>, <span class='va'>rules</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>    <span class='kw'>for</span> <span class='op'>(</span><span class='va'>rule</span> <span class='kw'>in</span> <span class='va'>rules</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>      <span class='kw'>if</span> <span class='op'>(</span><span class='fu'>pass_rule</span><span class='op'>(</span><span class='va'>rule</span>, <span class='va'>update</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>        <span class='kw'>next</span></span>
+<span>      <span class='op'>}</span></span>
+<span>      <span class='va'>update</span> <span class='op'>&lt;-</span> <span class='fu'>fix_order</span><span class='op'>(</span><span class='va'>rule</span>, <span class='va'>update</span><span class='op'>)</span></span>
+<span>    <span class='op'>}</span></span>
+<span>  <span class='op'>}</span></span>
+<span>  <span class='va'>update</span></span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='va'>uncorrect</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>fix_update</span>, <span class='va'>rules</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>get_middle</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code>2.77 sec elapsed</code></pre>
+</div>
 </section>
 <section id="day-6" class="panel-name panel">
 <h1 class="panel-name">Day 6</h1>
@@ -2865,7 +2972,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h1 class="panel-name">Day 25</h1>
 </section>
 </div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
