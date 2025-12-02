@@ -89,29 +89,26 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--radix_placeholder_meta_tags-->
-  <title>R Advent Of Code</title>
+  <title>R Advent Of Code: My 2025 Solutions</title>
 
-  <meta property="description" itemprop="description" content="Emil Hvitfeldt&#39;s solutions"/>
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="R Advent Of Code"/>
+  <meta property="og:title" content="R Advent Of Code: My 2025 Solutions"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="Emil Hvitfeldt&#39;s solutions"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="R Advent Of Code"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="R Advent Of Code"/>
-  <meta property="twitter:description" content="Emil Hvitfeldt&#39;s solutions"/>
+  <meta property="twitter:title" content="R Advent Of Code: My 2025 Solutions"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","site"]}},"value":[{"type":"character","attributes":{},"value":["R Advent Of Code"]},{"type":"character","attributes":{},"value":["Emil Hvitfeldt's solutions\n"]},{"type":"character","attributes":{},"value":["distill::distill_website"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title"]}},"value":[{"type":"character","attributes":{},"value":["My 2025 Solutions"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2477,6 +2474,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   }</style>
   <!--/radix_placeholder_distill-->
   <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
+  <link href="site_libs/panelset-0.3.0/panelset.css" rel="stylesheet" />
+  <script src="site_libs/panelset-0.3.0/panelset.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2496,7 +2495,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"R Advent Of Code","description":"Emil Hvitfeldt's solutions","authors":[]}
+{"title":"My 2025 Solutions","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2527,402 +2526,168 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>R Advent Of Code</h1>
+<h1>My 2025 Solutions</h1>
 
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>Emil Hvitfeldt’s solutions</p></p>
+
 </div>
 
 
 <div class="d-article">
-<p>This website is created using the <a href="https://github.com/emilhvitfeldt/rstats-adventofcode">emilhvitfeldt/rstats-adventofcode</a> repository. I try to save all my solution in one place here.</p>
-<p>I don’t have any rules I follow. I will end up doing most solutions using base R because of the nature of the problems. I will be using both <code>purrr</code> and <code>stringr</code> when the need comes up, I don’t hate myself. I’m here to write code and have fun doing it.</p>
-<h1 id="completion">Completion</h1>
 <div class="layout-chunk" data-layout="l-body">
 <style type="text/css">
-tbody {
-  color: #ffff66;
-}
-
-thead {
-  color: #cccccc;
+.panel-tab {
+  flex: 1 0 20%;
+  text-align: center;
 }
 </style>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Day</th>
-<th style="text-align: left;">2015</th>
-<th style="text-align: left;">2016</th>
-<th style="text-align: left;">2017</th>
-<th style="text-align: left;">2018</th>
-<th style="text-align: left;">2019</th>
-<th style="text-align: left;">2020</th>
-<th style="text-align: left;">2021</th>
-<th style="text-align: left;">2022</th>
-<th style="text-align: left;">2023</th>
-<th style="text-align: left;">2024</th>
-<th style="text-align: left;">2025</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">3</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">4</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">5</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">6</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">7</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">*</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">8</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">9</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">10</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">*</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">11</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">12</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">13</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">14</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">*</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">15</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">*</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">16</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">17</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">18</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">19</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">20</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">21</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">22</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">*</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">23</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">24</td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">**</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">25</td>
-<td style="text-align: left;">*</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">*</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-</tbody>
-</table>
+<style>#panelset_day-2 {color: #D63131 !important;}
+#panelset_day-3 {color: #D63131 !important;}
+#panelset_day-4 {color: #D63131 !important;}
+#panelset_day-5 {color: #D63131 !important;}
+#panelset_day-6 {color: #D63131 !important;}
+#panelset_day-7 {color: #D63131 !important;}
+#panelset_day-8 {color: #D63131 !important;}
+#panelset_day-9 {color: #D63131 !important;}
+#panelset_day-10 {color: #D63131 !important;}
+#panelset_day-11 {color: #D63131 !important;}
+#panelset_day-12 {color: #D63131 !important;}
+#panelset_day-13 {color: #D63131 !important;}
+#panelset_day-14 {color: #D63131 !important;}
+#panelset_day-15 {color: #D63131 !important;}
+#panelset_day-16 {color: #D63131 !important;}
+#panelset_day-17 {color: #D63131 !important;}
+#panelset_day-18 {color: #D63131 !important;}
+#panelset_day-19 {color: #D63131 !important;}
+#panelset_day-20 {color: #D63131 !important;}
+#panelset_day-21 {color: #D63131 !important;}
+#panelset_day-22 {color: #D63131 !important;}
+#panelset_day-23 {color: #D63131 !important;}
+#panelset_day-24 {color: #D63131 !important;}
+#panelset_day-25 {color: #D63131 !important;}</style>
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="panelset">
+<section id="day-1" class="panel-name panel">
+<h1 class="panel-name">Day 1</h1>
+<h2 id="part-1">Part 1</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='st'>"2025/01-input"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'>stringr</span><span class='fu'>::</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/str_replace.html'>str_replace_all</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"L"</span> <span class='op'>=</span> <span class='st'>"-"</span>, <span class='st'>"R"</span> <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>50</span>, <span class='va'>input</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/r/base/Arithmetic.html'>%%</a></span> <span class='fl'>100</span> <span class='op'>==</span> <span class='fl'>0</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code>0.002 sec elapsed</code></pre>
+</div>
+<h2 id="part-2">Part 2</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='st'>"2025/01-input"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'>stringr</span><span class='fu'>::</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/str_replace.html'>str_replace_all</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"L"</span> <span class='op'>=</span> <span class='st'>"-"</span>, <span class='st'>"R"</span> <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>zeros</span> <span class='op'>&lt;-</span> <span class='fl'>0</span></span>
+<span><span class='va'>position</span> <span class='op'>&lt;-</span> <span class='fl'>50</span></span>
+<span></span>
+<span><span class='kw'>for</span> <span class='op'>(</span><span class='va'>value</span> <span class='kw'>in</span> <span class='va'>input</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='kw'>for</span> <span class='op'>(</span><span class='va'>j</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>    <span class='va'>position</span> <span class='op'>&lt;-</span> <span class='va'>position</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/sign.html'>sign</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span></span>
+<span></span>
+<span>    <span class='va'>position</span> <span class='op'>&lt;-</span> <span class='va'>position</span> <span class='op'><a href='https://rdrr.io/r/base/Arithmetic.html'>%%</a></span> <span class='fl'>100</span></span>
+<span></span>
+<span>    <span class='kw'>if</span> <span class='op'>(</span><span class='va'>position</span> <span class='op'>==</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>      <span class='va'>zeros</span> <span class='op'>&lt;-</span> <span class='va'>zeros</span> <span class='op'>+</span> <span class='fl'>1</span></span>
+<span>    <span class='op'>}</span></span>
+<span>  <span class='op'>}</span></span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='va'>zeros</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code>0.05 sec elapsed</code></pre>
+</div>
+</section>
+<section id="day-2" class="panel-name panel">
+<h1 class="panel-name">Day 2</h1>
+</section>
+<section id="day-3" class="panel-name panel">
+<h1 class="panel-name">Day 3</h1>
+</section>
+<section id="day-4" class="panel-name panel">
+<h1 class="panel-name">Day 4</h1>
+</section>
+<section id="day-5" class="panel-name panel">
+<h1 class="panel-name">Day 5</h1>
+</section>
+<section id="day-6" class="panel-name panel">
+<h1 class="panel-name">Day 6</h1>
+</section>
+<section id="day-7" class="panel-name panel">
+<h1 class="panel-name">Day 7</h1>
+</section>
+<section id="day-8" class="panel-name panel">
+<h1 class="panel-name">Day 8</h1>
+</section>
+<section id="day-9" class="panel-name panel">
+<h1 class="panel-name">Day 9</h1>
+</section>
+<section id="day-10" class="panel-name panel">
+<h1 class="panel-name">Day 10</h1>
+</section>
+<section id="day-11" class="panel-name panel">
+<h1 class="panel-name">Day 11</h1>
+</section>
+<section id="day-12" class="panel-name panel">
+<h1 class="panel-name">Day 12</h1>
+</section>
+<section id="day-13" class="panel-name panel">
+<h1 class="panel-name">Day 13</h1>
+</section>
+<section id="day-14" class="panel-name panel">
+<h1 class="panel-name">Day 14</h1>
+</section>
+<section id="day-15" class="panel-name panel">
+<h1 class="panel-name">Day 15</h1>
+</section>
+<section id="day-16" class="panel-name panel">
+<h1 class="panel-name">Day 16</h1>
+</section>
+<section id="day-17" class="panel-name panel">
+<h1 class="panel-name">Day 17</h1>
+</section>
+<section id="day-18" class="panel-name panel">
+<h1 class="panel-name">Day 18</h1>
+</section>
+<section id="day-19" class="panel-name panel">
+<h1 class="panel-name">Day 19</h1>
+</section>
+<section id="day-20" class="panel-name panel">
+<h1 class="panel-name">Day 20</h1>
+</section>
+<section id="day-21" class="panel-name panel">
+<h1 class="panel-name">Day 21</h1>
+</section>
+<section id="day-22" class="panel-name panel">
+<h1 class="panel-name">Day 22</h1>
+</section>
+<section id="day-23" class="panel-name panel">
+<h1 class="panel-name">Day 23</h1>
+</section>
+<section id="day-24" class="panel-name panel">
+<h1 class="panel-name">Day 24</h1>
+</section>
+<section id="day-25" class="panel-name panel">
+<h1 class="panel-name">Day 25</h1>
+</section>
+</div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

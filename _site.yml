@@ -26,5 +26,7 @@ navbar:
       href: 2023.html
     - text: "2024"
       href: 2024.html
+    - text: "2025"
+      href: 2025.html
 output:
   distill::distill_article
