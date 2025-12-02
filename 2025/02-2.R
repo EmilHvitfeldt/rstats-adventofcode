@@ -7,10 +7,10 @@ Ids <- input |>
   unlist(recursive = FALSE) |>
   lapply(\(x) seq(x[1], x[2])) |>
   unlist() |>
-  as.character()
+  as.character() |>
+  str_split("")
 
 is_invalid <- function(x) {
-  x <- str_split_1(x, "")
   len <- length(x)
 
   if (len == 1) {
@@ -31,5 +31,6 @@ is_invalid <- function(x) {
 
 Ids |>
   purrr::keep(is_invalid) |>
+  lapply(paste0, collapse = "") |>
   as.numeric() |>
   sum()
