@@ -1,23 +1,17 @@
-input <- readLines("2025/03-input") |>
-  stringr::str_split("") |>
-  lapply(as.numeric)
-
 f <- function(x) {
   repeat {
     if (length(x) == 12) {
       break
     }
 
-    suppressWarnings(
-      delete <- min(which(diff(x) > 0))
-    )
+    diff <- diff(x)
 
-    if (is.infinite(delete)) {
-      x <- x[-length(x)]
+    if (all(diff <= 0)) {
+      x <- head(x, -1)
       next
     }
 
-    x <- x[-delete]
+    x <- x[-min(which(diff > 0))]
   }
 
   as.numeric(paste0(x, collapse = ""))
@@ -25,6 +19,9 @@ f <- function(x) {
 
 options(digits = 20)
 
-lapply(input, f) |>
+readLines("2025/03-input") |>
+  strsplit("") |>
+  lapply(as.numeric) |>
+  lapply(f) |>
   unlist() |>
   sum()
