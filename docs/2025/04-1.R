@@ -1,44 +1,36 @@
-read_matrix <- function(path,
-                        sep = "",
-                        fill = NA,
-                        type = identity) {
-  lines <- readLines(path)
-  tokens <- strsplit(lines, sep)
-  token_lengths <- lengths(tokens)
-  res <- matrix(fill,
-                nrow = length(lines),
-                ncol = max(token_lengths))
+input <- readLines("2025/04-input")
+tokens <- strsplit(input, "")
+token_lengths <- lengths(tokens)
+mat <- matrix(nrow = length(input), ncol = max(token_lengths))
 
-  for (i in seq_along(lines)) {
-    res[i, seq_len(token_lengths[i])] <- type(tokens[[i]])
-  }
-  res
+for (i in seq_along(input)) {
+  mat[i, seq_len(token_lengths[i])] <- tokens[[i]]
 }
 
-input <- read_matrix("2025/04-input")
+around <- function(x, y) {
+  x_max <- nrow(mat)
+  y_max <- ncol(mat)
 
-around <- function(x,
-                   y,
-                   x_max = nrow(input),
-                   y_max = ncol(input)) {
   xs <- x + c(-1, 0, 1)
   ys <- y + c(-1, 0, 1)
 
-  xs <- xs[xs > 0]
-  ys <- ys[ys > 0]
-  xs <- xs[xs <= x_max]
-  ys <- ys[ys <= y_max]
+  xs <- xs[xs > 0 & xs <= x_max]
+  ys <- ys[ys > 0 & ys <= y_max]
 
-  input[xs, ys]
+  mat[xs, ys]
 }
 
-matches <- input
+neighbors <- function(x, y) {
+  sum(around(x, y) == "@") - (mat[x, y] == "@")
+}
+
+matches <- mat
 matches[] <- 0
 
-for (row in seq_len(nrow(input))) {
-  for (col in seq_len(ncol(input))) {
-    matches[row, col] <- sum(around(row, col) == "@") - (input[row, col] == "@")
+for (row in seq_len(nrow(mat))) {
+  for (col in seq_len(ncol(mat))) {
+    matches[row, col] <- neighbors(row, col)
   }
 }
 
-sum(matches < 4 & input == "@")
+sum(matches < 4 & mat == "@")
