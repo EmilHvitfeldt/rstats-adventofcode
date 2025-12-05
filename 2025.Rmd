@@ -137,6 +137,28 @@ toc()
 
 # Day 4 {.panel-name}
 
+## Part 1
+
+```{r, code=readLines("2025/04-1.R"), eval=FALSE}
+```
+
+```{r day04part1, echo=FALSE, cache=TRUE}
+tic()
+tmp <- eval(parse(text = readLines("2025/04-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2025/04-2.R"), eval=FALSE}
+```
+
+```{r day04part2, echo=FALSE, cache=TRUE}
+tic()
+tmp <- eval(parse(text = readLines("2025/04-2.R")))
+toc()
+```
+
 :::
 
 ::: {.panel}
@@ -186,83 +208,3 @@ toc()
 # Day 12 {.panel-name}
 
 :::
-
-::: {.panel}
-
-# Day 13 {.panel-name}
-
-:::
-
-::: {.panel}
-
-# Day 14 {.panel-name}
-
-:::
-
-::: {.panel}
-
-# Day 15 {.panel-name}
-
-:::
-
-::: {.panel}
-
-# Day 16 {.panel-name}
-
-:::
-
-::: {.panel}
-
-# Day 17 {.panel-name}
-
-:::
-
-::: {.panel}
-
-# Day 18 {.panel-name}
-
-:::
-
-::: {.panel}
-
-# Day 19 {.panel-name}
-
-:::
-
-::: {.panel}
-
-# Day 20 {.panel-name}
-
-:::
-
-::: {.panel}
-
-# Day 21 {.panel-name}
-
-:::
-
-::: {.panel}
-
-# Day 22 {.panel-name}
-
-:::
-
-::: {.panel}
-
-# Day 23 {.panel-name}
-
-:::
-
-::: {.panel}
-
-# Day 24 {.panel-name}
-
-:::
-
-::: {.panel}
-
-# Day 25 {.panel-name}
-
-:::
-
-:::::

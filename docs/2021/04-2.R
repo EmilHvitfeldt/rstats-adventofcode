@@ -1,10 +1,13 @@
-input <- readLines("2021/04-input")
-
-read_matrix <- function(lines, sep = "", type = identity) {
-  lines <- stringr::str_trim(lines)
+read_matrix <- function(path,
+                        sep = "",
+                        fill = NA,
+                        type = identity) {
+  lines <- readLines(path)
   tokens <- strsplit(lines, sep)
   token_lengths <- lengths(tokens)
-  res <- matrix(nrow = length(lines), ncol = max(token_lengths))
+  res <- matrix(fill,
+                nrow = length(lines),
+                ncol = max(token_lengths))
 
   for (i in seq_along(lines)) {
     res[i, seq_len(token_lengths[i])] <- type(tokens[[i]])
@@ -12,28 +15,44 @@ read_matrix <- function(lines, sep = "", type = identity) {
   res
 }
 
-numbers <- strsplit(input[1], ",")[[1]] |> as.integer()
+input <- read_matrix("2025/04-input")
 
-boards <- purrr::map(
-  0:99,
-  ~ read_matrix(input[3:7 + 6 * .x], "\\s+", type = as.integer)
-)
+before <- sum(input == "@")
 
-check_board <- function(board) {
-  for (i in seq_along(numbers)) {
-    matched <- matrix(board %in% numbers[seq_len(i)], nrow = 5)
+around <- function(x,
+                   y,
+                   x_max = nrow(input),
+                   y_max = ncol(input)) {
+  xs <- x + c(-1, 0, 1)
+  ys <- y + c(-1, 0, 1)
 
-    row_checks <- apply(matched, MARGIN = 1, prod)
-    col_checks <- apply(matched, MARGIN = 2, prod)
-    if (any(c(row_checks, col_checks) == 1)) break
-  }
-  i
+  xs <- xs[xs > 0]
+  ys <- ys[ys > 0]
+  xs <- xs[xs <= x_max]
+  ys <- ys[ys <= y_max]
+
+  input[xs, ys]
 }
 
-win_times <- purrr::map_int(boards, check_board)
+matches <- input
+matches[] <- 0
 
-slowest_time <- max(win_times)
-slowest_board <- boards[[which(win_times == slowest_time)]]
+repeat {
+  for (row in seq_len(nrow(input))) {
+    for (col in seq_len(ncol(input))) {
+      matches[row, col] <- sum(around(row, col) == "@") - (input[row, col] == "@")
+    }
+  }
 
-sum(setdiff(slowest_board, numbers[seq_len(slowest_time)])) *
-  numbers[slowest_time]
+  delete <- matches < 4 & input == "@"
+
+  if (!any(delete)) {
+    break
+  }
+
+  input[delete] <- "."
+}
+
+after <- sum(input == "@")
+
+before - after

@@ -17,8 +17,6 @@ read_matrix <- function(path,
 
 input <- read_matrix("2025/04-input")
 
-before <- sum(input == "@")
-
 around <- function(x,
                    y,
                    x_max = nrow(input),
@@ -37,22 +35,10 @@ around <- function(x,
 matches <- input
 matches[] <- 0
 
-repeat {
-  for (row in seq_len(nrow(input))) {
-    for (col in seq_len(ncol(input))) {
-      matches[row, col] <- sum(around(row, col) == "@") - (input[row, col] == "@")
-    }
+for (row in seq_len(nrow(input))) {
+  for (col in seq_len(ncol(input))) {
+    matches[row, col] <- sum(around(row, col) == "@") - (input[row, col] == "@")
   }
-
-  delete <- matches < 4 & input == "@"
-
-  if (!any(delete)) {
-    break
-  }
-
-  input[delete] <- "."
 }
 
-after <- sum(input == "@")
-
-before - after
+sum(matches < 4 & input == "@")
