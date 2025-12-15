@@ -276,6 +276,29 @@ toc()
 
 # Day 9 {.panel-name}
 
+
+## Part 1
+
+```{r, code=readLines("2017/09-1.R"), eval=FALSE}
+```
+
+```{r day09part1, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2017/09-1.R")))
+toc()
+```
+
+## Part 2
+
+```{r, code=readLines("2017/09-2.R"), eval=FALSE}
+```
+
+```{r day09part2, echo=FALSE, cache=TRUE}
+tic()
+eval(parse(text = readLines("2017/09-2.R")))
+toc()
+```
+
 :::
 
 ::: {.panel}
